@@ -21,6 +21,7 @@ describe 'as a visitor' do
       expect(page).to have_content("#{conference_1.start_date} - #{conference_1.end_date}")
       expect(page).to have_content(conference_2.name)
       expect(page).to have_content("#{conference_2.start_date} - #{conference_2.end_date}")
+      expect(page).to have_link("New Conference", href: '/conferences/new')
     end
   end
 end
