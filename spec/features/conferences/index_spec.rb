@@ -14,7 +14,7 @@ describe 'as a visitor' do
                                       start_date: "2020-01-21",
                                       end_date: "2020-01-24")
 
-      visit "/songs"
+      visit "/conferences"
 
       expect(page).to have_content("Conference List")
       expect(page).to have_content(conference_1.name)
