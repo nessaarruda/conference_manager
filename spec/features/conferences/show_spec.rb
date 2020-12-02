@@ -9,7 +9,7 @@ describe 'as a visitor' do
                                       start_date: "2021-01-19",
                                       end_date: "2021-01-21")
 
-      visit '/conferences/:id'
+      visit "/conferences/#{conference_1.id}"
 
       expect(page).to have_content(conference_1.name)
       expect(page).to have_content("Organization: #{conference_1.organization}")
