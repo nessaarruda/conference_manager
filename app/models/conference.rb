@@ -1,10 +1,10 @@
 class Conference < ApplicationRecord
 
   def start
-    start_date.strftime('%b %d, %Y')
+    start_date.strftime('%b%e, %Y')
   end
 
   def end
-    end_date.strftime('%b %d, %Y')
+    end_date.strftime('%b%e, %Y')
   end
 end
