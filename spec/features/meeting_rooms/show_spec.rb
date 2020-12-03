@@ -6,13 +6,13 @@ describe 'As a Visitor' do
       meeting_room_1 = MeetingRoom.create!(name: "Oprah",
                                           has_projector: true,
                                           capacity: 30)
-      meeting_room_2 = MeetingRoom.create!(name: "AOC",
-                                          has_projector: false,
-                                          capacity: 20)
+                                          
       visit "meeting_rooms/#{meeting_room_1.id}"
       save_and_open_page
-      
-      expect(page).to have_content("#{meeting_room_1}")
+
+      expect(page).to have_content("#{meeting_room_1.name}")
+      expect(page).to have_content("#{meeting_room_1.has_projector}")
+      expect(page).to have_content("#{meeting_room_1.capacity}")
     end
   end
 end
