@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_010705) do
+ActiveRecord::Schema.define(version: 2020_12_03_223420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "meeting_rooms", force: :cascade do |t|
     t.string "name"
-    t.boolean "has_project"
+    t.boolean "has_projector"
     t.integer "capacity"
   end
 
