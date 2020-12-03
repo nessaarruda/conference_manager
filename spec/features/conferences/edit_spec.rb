@@ -10,7 +10,7 @@ describe 'edit conference page' do
 
     visit "/conferences/#{conference_1.id}/edit"
 
-    expect(page).to have_content("Edit #{conference_1.name}")
+    expect(page).to have_content("Update #{conference_1.name}")
     expect(page).to have_selector('form')
     expect(page).to have_text('Conference name:')
     expect(page).to have_field('confname', type: 'text')

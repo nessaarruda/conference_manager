@@ -1,5 +1,7 @@
 <h1><%= @conference.name %></h1>
 
-<p>Organization: <%= @conference.organization %></p><br/>
-<p>Expected Attendance: <%= @conference.size %></p><br/>
-<p>Dates: <%= "#{@conference.start_date} - #{@conference.end_date}" %></p>
+<h2><%= @conference.organization %></h2>
+<p><%= "#{@conference.start} to #{@conference.end}" %></p>
+<p>Expected Attendance: <%= @conference.size %></p>
+<br>
+<a href='/conferences/<%= @conference.id %>/edit'>Update Conference</a>
