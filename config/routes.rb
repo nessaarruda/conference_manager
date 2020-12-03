@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/conferences/:id', to: 'conferences#show'
   get '/conferences/:id/edit', to: 'conferences#edit'
   patch '/conferences/:id', to: 'conferences#update'
+  delete '/conferences/:id', to: 'conferences#destroy'
 end

@@ -42,11 +42,11 @@ describe 'as a visitor' do
 
       visit "/conferences/#{conference_1.id}"
 
-      expect(page).to have_link("Delete Conference", href: "/conferences/#{conference_1.id}")
+      expect(page).to have_button("Delete Conference")
 
-      click_link("Delete Conference")
+      click_on("Delete Conference")
 
-      expect(page).to have_current_path("/conferences/#{conference_1.id}/edit")
+      expect(page).to have_current_path("/conferences")
       expect(page).not_to have_content(conference_1.name)
     end
   end

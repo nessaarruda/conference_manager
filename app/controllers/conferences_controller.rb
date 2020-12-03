@@ -33,4 +33,9 @@ class ConferencesController < ApplicationController
       })
     redirect_to "/conferences/#{conference.id}"
   end
+
+  def destroy
+    Conference.destroy(params[:id])
+    redirect_to '/conferences'
+  end
 end

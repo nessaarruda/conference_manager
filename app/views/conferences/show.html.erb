@@ -5,3 +5,8 @@
 <p>Expected Attendance: <%= @conference.size %></p>
 <br>
 <a href='/conferences/<%= @conference.id %>/edit'>Update Conference</a>
+<form action='/conferences/<%= @conference.id %>' method="post">
+  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+  <input type='hidden' name='_method' value="DELETE">
+  <input type='submit' value='Delete Conference'/>
+</form>
