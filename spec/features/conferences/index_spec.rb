@@ -17,8 +17,8 @@ describe 'as a visitor' do
       visit "/conferences"
 
       expect(page).to have_content("Conference List")
-      expect(page).to have_content(conference_1.name)
-      expect(page).to have_content(conference_2.name)
+      expect(page).to have_link(conference_1.name, href: "/conferences/#{conference_1.id}")
+      expect(page).to have_link(conference_2.name, href: "/conferences/#{conference_2.id}")
     end
 
     it "has a link to create a new Conference record" do
