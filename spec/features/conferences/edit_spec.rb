@@ -2,11 +2,7 @@ require 'rails_helper'
 
 describe 'edit conference page' do
   it 'has a form to edit the attributes of the conference' do
-    conference_1 = Conference.create(name: "World Ruby Conference",
-                                    organization: "Ruby Association",
-                                    size: 2000,
-                                    start_date: "2021-01-19",
-                                    end_date: "2021-01-21")
+    conference_1 = create(:conference)
 
     visit "/conferences/#{conference_1.id}/edit"
 
@@ -25,11 +21,7 @@ describe 'edit conference page' do
   end
 
   it 'updates the attributes of the conference' do
-    conference_1 = Conference.create(name: "World Ruby Conference",
-                                    organization: "Ruby Association",
-                                    size: 2000,
-                                    start_date: "2021-01-19",
-                                    end_date: "2021-01-21")
+    conference_1 = create(:conference)
 
     visit "/conferences/#{conference_1.id}/edit"
 
@@ -47,5 +39,16 @@ describe 'edit conference page' do
     expect(page).to have_content("Association of Ruby Professionals")
     expect(page).to have_content("Expected Attendance: 4000")
     expect(page).to have_content("Jan 19, 2021 to Jan 23, 2021")
+  end
+
+  it 'stores default attributes of the conference' do
+    conference_1 = create(:conference, start_date: DateTime.parse("2021-01-19"))
+
+    visit "/conferences/#{conference_1.id}/edit"
+
+    fill_in('start', with: "2021-01-17")
+    click_on('Update Conference')
+
+    expect(page).to have_content("Jan 17, 2021 to #{conference_1.end}")
   end
 end
