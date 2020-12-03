@@ -32,5 +32,22 @@ describe 'as a visitor' do
 
       expect(page).to have_current_path("/conferences/#{conference_1.id}/edit")
     end
+
+    it 'can delete the conference record' do
+      conference_1 = Conference.create(name: "World Ruby Conference",
+                                      organization: "Ruby Association",
+                                      size: 2000,
+                                      start_date: "2021-01-19",
+                                      end_date: "2021-01-21")
+
+      visit "/conferences/#{conference_1.id}"
+
+      expect(page).to have_link("Delete Conference", href: "/conferences/#{conference_1.id}")
+
+      click_link("Delete Conference")
+
+      expect(page).to have_current_path("/conferences/#{conference_1.id}/edit")
+      expect(page).not_to have_content(conference_1.name)
+    end
   end
 end
