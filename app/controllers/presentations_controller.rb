@@ -1,5 +1,14 @@
 class PresentationsController < ApplicationController
   def index
-    @presentations = Presentation.all
+    if params[:id]
+      @presentations = get_conference.presentations
+    else
+      @presentations = Presentation.all
+    end
+  end
+
+  private
+  def get_conference
+    Conference.find(params[:id])
   end
 end
