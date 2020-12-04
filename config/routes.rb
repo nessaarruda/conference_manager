@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   delete '/conferences/:id', to: 'conferences#destroy'
 
   get '/presentations', to: 'presentations#index'
-
   get '/conferences/:id/presentations', to: 'presentations#index'
+  get 'presentations/:id', to: 'presentations#show'
 end
