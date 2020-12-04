@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   delete '/meeting_rooms/:id', to: 'meeting_rooms#destroy'
 
   get '/meetings', to:'meetings#index'
-
+  get '/meetings/:id/meetings', to: 'meetings#index'
 end
