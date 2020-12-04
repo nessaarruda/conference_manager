@@ -1,37 +1,31 @@
-require 'rails_helper.rb'
+require 'rails_helper'
 
-describe 'When I visit the MeetingRooms Index page' do
-  it 'I see a link to create a new meeting room' do
+describe 'as a visitor' do
+  describe 'new meeting_room record page' do
+    it 'displays a form for creating a new meeting_room record' do
+      visit '/meeting_rooms/new'
 
-    visit "/meeting_rooms"
-    expect(page).to have_link('Create New Meeting Room')
-  end
-
-    it 'When I click on the link it takes me to /meeting_rooms/new' do
-      visit "/meeting_rooms"
-      click_link('Create New Meeting Room')
-      expect(current_path).to eq('/meeting_rooms/new')
+      expect(page).to have_content("New Meeting Room")
+      expect(page).to have_selector('form')
+      expect(page).to have_field('metname', type: 'text')
+      expect(page).to have_text('Capacity:')
+      expect(page).to have_field('capacity', type: 'bigint')
     end
-  end
-  describe 'When I am on the new page I see a form for creating a new meeting room record' do
-    describe 'When I fill out the form with the new meeting room attributes' do
-      describe 'When I click the button "Create New Meeting Room" to submit the form' do
-        it 'Saves the meeting room and redirects me to /meeting_rooms/' do
 
-          visit 'meeting_rooms/new'
-      end
+    it 'has a button to Create Meeting Room' do
+      visit '/meeting_rooms/new'
+
+      expect(page).to have_button('Create Meeting Room', type: 'submit')
+    end
+
+    it 'creates a new meeting_room and redirects to the meeting_rooms index' do
+      visit '/meeting_rooms/new'
+
+      fill_in('metname', with: 'Oprah')
+      fill_in('capacity', with: 30)
+      click_on('Create Meeting Room')
+
+      expect(page).to have_current_path('/meeting_rooms')
     end
   end
 end
-#
-#
-#   end
-# end
-
-
-
-
-# And I click the button "Create Parent" to submit the form
-# Then a `POST` request is sent to the '/parents' route,
-# a new parent record is created,
-# and I am redirected to the Parent Index page where I see the new Parent displayed.

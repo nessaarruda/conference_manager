@@ -1,11 +1,10 @@
-  <p>
-  <%= @meeting.name %>
-  </p>
+<h1><%= @meeting_room.name %></h1>
 
-  <p>
-  <%= @meeting.has_projector %>
-  </p>
-
-  <p>
-  <%= @meeting.capacity %>
-  </p>
+<p>Capacity: <%= @meeting_room.capacity %></p>
+<br>
+<a href='/meeting_rooms/<%= @meeting_room.id %>/edit'>Update Meeting Room</a>
+<form action='/meeting_rooms/<%= @meeting_room.id %>' method="post">
+  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+  <input type='hidden' name='_method' value="DELETE">
+  <input type='submit' value='Delete Meeting Room'/>
+</form>
