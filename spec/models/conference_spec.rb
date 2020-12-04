@@ -9,4 +9,8 @@ describe Conference do
     expect(conference.start).to eq("Dec 2, 2020")
     expect(conference.end).to eq("Dec 3, 2020")
   end
+
+  it 'has presentations' do
+    should have_many :presentations
+  end
 end
