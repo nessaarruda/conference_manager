@@ -1,0 +1,20 @@
+<h1>New Presentation</h1>
+
+<form action='/presentations' method='post'>
+  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <input type='hidden' name='conference_id' value="<%= params[:id] %>"/>
+  <label for='presname'>Presentation name: </label>
+  <input id='presname' type='text' name='presentation[name]'/><br/>
+  <label for='presenter'>Presenter: </label>
+  <input id='presenter' type='text' name='presentation[presenter]'/><br/>
+  <label for='category'>Category: </label>
+  <select id='category' name='presentation[category]'>
+    <option value='keynote'>keynote</option>
+    <option value='lecture'>lecture</option>
+    <option value='workshop' selected>workshop</option>
+    <option value='panel'>panel</option>
+  </select><br/>
+  <label for='projector'>Do you need a projector?</label>
+  <input id='projector' type='checkbox' name='presentation[projector_needed]'/><br/>
+  <input type='submit' value='Create Presentation'/>
+</form>

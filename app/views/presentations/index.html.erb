@@ -10,7 +10,6 @@
   <tr>
     <th>Name</th>
     <th>Presenter</th>
-    <th>Conference</th>
     <th>Category</th>
     <th>projector needed</th>
     <th>created</th>
@@ -18,9 +17,8 @@
   </tr>
   <% @presentations.each do |presentation| %>
     <tr>
-      <td><a href="/presentations/#{presentation.id}"><%= presentation.name %></td>
+      <td><a href="/presentations/<%= presentation.id %>"><%= presentation.name %></td>
       <td><%= presentation.presenter %></td>
-      <td><%= presentation.conference_id %></td>
       <td><%= presentation.category %></td>
       <td><%= presentation.projector_needed %></td>
       <td><%= presentation.created_at %></td>
@@ -28,4 +26,11 @@
     </tr>
   <% end %>
 </table>
+<% if params[:id] %>
+  <form action="/conferences/<%= params[:id] %>/presentations/new" method="get">
+    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    <input type='hidden' name='conference_id' value="<%= params[:id] %>"/>
+    <input type='submit' value='Create Presentation'/>
+  </form>
+<% end %>
 </body>
