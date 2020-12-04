@@ -7,4 +7,7 @@ class MeetingRoomsController < ApplicationController
   def show
     @meeting = MeetingRoom.find(params[:id])
   end
+
+  def new
+  end
 end
