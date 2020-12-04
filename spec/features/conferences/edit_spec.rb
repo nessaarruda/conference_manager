@@ -49,6 +49,7 @@ describe 'edit conference page' do
     fill_in('start', with: "2021-01-17")
     click_on('Update Conference')
 
-    expect(page).to have_content("Jan 17, 2021 to #{conference_1.end}")
+    conf_end = conference_1.end_date.strftime("%b %e, %Y")
+    expect(page).to have_content("Jan 17, 2021 to #{conf_end}")
   end
 end
