@@ -41,7 +41,7 @@ describe 'edit conference page' do
     expect(page).to have_content("Jan 19, 2021 to Jan 23, 2021")
   end
 
-  it 'stores default attributes of the conference' do
+  it 'allows you to change a single attribute of the conference' do
     conference_1 = create(:conference, start_date: DateTime.parse("2021-01-19"))
 
     visit "/conferences/#{conference_1.id}/edit"
