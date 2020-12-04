@@ -37,4 +37,16 @@ describe 'presentations index page' do
     expect(page).to have_content(presentation_2.name)
     expect(page).not_to have_content(presentation_3.name)
   end
+
+  it 'has a link to add a new presentation' do
+    conference_1 = create(:conference)
+
+    visit "/conferences/#{conference_1.id}/presentations"
+
+    expect(page).to have_link("Create Presentation")
+
+    click_link("Create Presentation")
+
+    expect(current_path).to eq("/conferences/#{conference_1.id}/presentations/new")
+  end
 end
