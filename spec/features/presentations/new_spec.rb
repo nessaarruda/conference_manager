@@ -13,13 +13,15 @@ RSpec.describe 'new presentation page' do
     expect(page).to have_text('Presenter:')
     expect(page).to have_field('presenter', type: 'text')
     expect(page).to have_text('Category:')
-    expect(page).to have_selector('category', type: 'option')
+    expect(page).to have_select('category')
     expect(page).to have_text('Do you need a projector?')
-    expect(page).to have_selector('projector', type: 'radio')
+    expect(page).to have_field('projector', type: 'checkbox')
   end
 
   it 'has a button to Create Presentation' do
-    visit '/presentation/new'
+    conference = create(:conference)
+
+    visit "/conferences/#{conference.id}/presentations/new"
 
     expect(page).to have_button('Create Presentation', type: 'submit')
   end
@@ -31,8 +33,8 @@ RSpec.describe 'new presentation page' do
 
     fill_in('presname', with: "Keynote Address")
     fill_in('presenter', with: "Yukihiro Matsumoto")
-    fill_in('category', with: "keynote")
-    fill_in('projector', with: "yes")
+    select('keynote', from: "category")
+    check('projector')
     click_on("Create Presentation")
 
     expect(current_path).to eq("/conferences/#{conference.id}/presentations")

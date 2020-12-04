@@ -13,13 +13,12 @@ describe 'presentations index page' do
     within_table('presentations') do
       expect(page.all('td')[0]).to have_content(presentation_1.name)
       expect(page.all('td')[1]).to have_content(presentation_1.presenter)
-      expect(page.all('td')[2]).to have_content(presentation_1.conference_id)
-      expect(page.all('td')[3]).to have_content(presentation_1.category)
-      expect(page.all('td')[4]).to have_content(presentation_1.projector_needed)
-      expect(page.all('td')[5]).to have_content(presentation_1.created_at)
-      expect(page.all('td')[6]).to have_content(presentation_1.updated_at)
-      expect(page.all('td')[7]).to have_content(presentation_2.name)
-      expect(page.all('td')[14]).to have_content(presentation_3.name)
+      expect(page.all('td')[2]).to have_content(presentation_1.category)
+      expect(page.all('td')[3]).to have_content(presentation_1.projector_needed)
+      expect(page.all('td')[4]).to have_content(presentation_1.created_at)
+      expect(page.all('td')[5]).to have_content(presentation_1.updated_at)
+      expect(page.all('td')[6]).to have_content(presentation_2.name)
+      expect(page.all('td')[12]).to have_content(presentation_3.name)
     end
   end
 
@@ -43,9 +42,9 @@ describe 'presentations index page' do
 
     visit "/conferences/#{conference_1.id}/presentations"
 
-    expect(page).to have_link("Create Presentation")
+    expect(page).to have_button("Create Presentation")
 
-    click_link("Create Presentation")
+    click_button("Create Presentation")
 
     expect(current_path).to eq("/conferences/#{conference_1.id}/presentations/new")
   end
