@@ -1,2 +1,3 @@
 class MeetingRoom < ApplicationRecord
-end 
+  has_many :meetings
+end

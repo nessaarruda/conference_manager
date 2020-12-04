@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   get '/meeting_rooms/:id/edit', to: 'meeting_rooms#edit'
   patch '/meeting_rooms/:id', to: 'meeting_rooms#update'
   delete '/meeting_rooms/:id', to: 'meeting_rooms#destroy'
+
+  get '/meetings', to:'meetings#index'
+
 end
