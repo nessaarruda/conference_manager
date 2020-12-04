@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :presentation do
     conference
-    name { Faker::Company.bs }
-    presenter { Faker::Name.name }
-    category { rand('keynote','lecture','workshop','panel') }
-    projector_needed { rand(true, false) }
+    name { Faker::Company.bs.titleize }
+    presenter { Faker::Name.name.titleize }
+    category { ['keynote','lecture','workshop','panel'].sample }
+    projector_needed { [true, false].sample }
   end
 end
