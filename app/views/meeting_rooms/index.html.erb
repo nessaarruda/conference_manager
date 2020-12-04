@@ -1,2 +1,7 @@
 <h1>Meeting Rooms</h1>
-<a href="/meeting_rooms/new">Create New Meeting Room</a>
+<% @meeting_rooms.each do |meeting_room| %>
+
+  <h3><a href="/meeting_rooms/<%= meeting_room.id %>"><%= meeting_room.name %></a></h3>
+<% end %>
+<br>
+<a href='/meeting_rooms/new'>New Meeting Room</a>

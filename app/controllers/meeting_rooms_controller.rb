@@ -10,4 +10,14 @@ class MeetingRoomsController < ApplicationController
 
   def new
   end
+
+  def create
+    meeting_room = MeetingRoom.create({
+                                    name: params[:meeting_room][:name],
+                                    has_projector: params[:meeting_room][:has_projector],
+                                    capacity: params[:meeting_room][:capacity]
+                                    })
+
+    redirect_to '/meeting_rooms'
+  end
 end
