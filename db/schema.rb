@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_034642) do
+ActiveRecord::Schema.define(version: 2020_12_04_002531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,11 +26,13 @@ ActiveRecord::Schema.define(version: 2020_12_03_034642) do
   create_table "presentations", force: :cascade do |t|
     t.string "name"
     t.string "presenter"
-    t.integer "conference_id"
     t.string "category"
     t.boolean "projector_needed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "conference_id"
+    t.index ["conference_id"], name: "index_presentations_on_conference_id"
   end
 
+  add_foreign_key "presentations", "conferences"
 end
