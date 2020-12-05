@@ -85,7 +85,7 @@ describe 'presentations index page' do
     presentation_2 = create(:presentation, conference: conference)
     presentation_3 = create(:presentation, conference: conference)
 
-    visit "/conferences/#{conferenc.id}/presentations"
+    visit "/conferences/#{conference.id}/presentations"
 
     expect(page).to have_content("3 presentations")
 
