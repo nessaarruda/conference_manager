@@ -1,7 +1,7 @@
 class PresentationsController < ApplicationController
   def index
     if params[:id]
-      @presentations = get_conference.presentations
+      @presentations = Presentation.where(conference_id: params[:id]).order(projector_needed: :desc, created_at: :desc)
     else
       @presentations = Presentation.order(created_at: :desc)
     end
@@ -43,10 +43,5 @@ class PresentationsController < ApplicationController
   def destroy
     Presentation.destroy(params[:id])
     redirect_to '/presentations'
-  end
-
-  private
-  def get_conference
-    Conference.find(params[:id])
   end
 end

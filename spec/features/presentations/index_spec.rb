@@ -105,5 +105,6 @@ describe 'presentations index page' do
 
     expect(presentation_2.name).to appear_before(presentation_1.name)
     expect(presentation_2.name).to appear_before(presentation_3.name)
+    expect(presentation_3.name).to appear_before(presentation_1.name)
   end
 end
