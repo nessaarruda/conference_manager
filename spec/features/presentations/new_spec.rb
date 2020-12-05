@@ -40,4 +40,17 @@ RSpec.describe 'new presentation page' do
     expect(current_path).to eq("/conferences/#{conference.id}/presentations")
     expect(page).to have_content("Keynote Address")
   end
+
+  it 'projector_needed defaults to false if form box is unchecked' do
+    conference = create(:conference)
+
+    visit "/conferences/#{conference.id}/presentations/new"
+
+    fill_in('presname', with: "Keynote Address")
+    fill_in('presenter', with: "Yukihiro Matsumoto")
+    select('keynote', from: "category")
+    click_on("Create Presentation")
+
+    expect(page).to have_content("false")
+  end
 end
