@@ -53,4 +53,34 @@ describe 'index conferences page' do
 
     expect(page).to have_content(conference_1.created_at.strftime('%m-%d-%Y %H:%M'))
   end
+
+  it 'has a field that allows a user to select records above a user-defined number of attendees' do
+    visit "/conferences"
+
+    expect(page).to have_field('number_filter', type: 'bigint')
+  end
+
+  it 'allows the user to select conferences by number of attendees' do
+    conference_1 = create(:conference, size: 9800)
+    conference_2 = create(:conference, size: 2800)
+    conference_3 = create(:conference, size: 4700)
+    conference_4 = create(:conference, size: 430)
+
+    visit "/conferences"
+    fill_in('number_filter', with: 1000)
+    click_on('Apply Filter')
+
+    expect(page).to have_content(conference_1.name)
+    expect(page).to have_content(conference_2.name)
+    expect(page).to have_content(conference_3.name)
+    expect(page).not_to have_content(conference_4.name)
+
+    fill_in('number_filter', with: 5000)
+    click_on('Apply Filter')
+
+    expect(page).to have_content(conference_1.name)
+    expect(page).not_to have_content(conference_2.name)
+    expect(page).not_to have_content(conference_3.name)
+    expect(page).not_to have_content(conference_4.name)
+  end
 end
