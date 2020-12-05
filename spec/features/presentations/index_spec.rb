@@ -48,4 +48,32 @@ describe 'presentations index page' do
 
     expect(current_path).to eq("/conferences/#{conference_1.id}/presentations/new")
   end
+
+  it 'displays records in order by recency of creation' do
+    presentation_1 = create(:presentation, created_at: DateTime.parse("20201101"))
+    presentation_2 = create(:presentation, created_at: DateTime.parse("20201201"))
+    presentation_3 = create(:presentation, created_at: DateTime.parse("20201203"))
+    presentation_4 = create(:presentation, created_at: DateTime.parse("20201202"))
+
+    visit "/presentations"
+
+    expect(presentation_2.name).to appear_before(presentation_1.name)
+    expect(presentation_4.name).to appear_before(presentation_2.name)
+    expect(presentation_3.name).to appear_before(presentation_4.name)
+
+    presentation_5 = create(:presentation)
+
+    refresh
+
+    expect(presentation_5.name).to appear_before(presentation_3.name)
+  end
+
+  it 'displays the date each presentation was created' do
+    presentation_1 = create(:presentation, created_at: DateTime.parse("20201101"))
+    presentation_2 = create(:presentation, created_at: DateTime.parse("20201201"))
+
+    visit "/presentations"
+
+    expect(page).to have_content(presentation_1.created_at.strftime('%m-%d-%Y %H:%M'))
+  end
 end
