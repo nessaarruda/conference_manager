@@ -24,4 +24,17 @@ RSpec.describe 'show presentation page' do
 
     expect(current_path).to eq("/presentations/#{presentation.id}/edit")
   end
+
+  it 'can delete the presentation record' do
+    presentation = create(:presentation)
+
+    visit "/presentations/#{presentation.id}"
+
+    expect(page).to have_button("Delete Presentation")
+
+    click_on("Delete Presentation")
+
+    expect(page).to have_current_path("/presentations")
+    expect(page).not_to have_content(presentation.name)
+  end
 end
