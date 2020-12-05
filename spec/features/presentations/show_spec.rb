@@ -12,4 +12,16 @@ RSpec.describe 'show presentation page' do
     expect(page).to have_content(presentation.projector_needed)
     expect(page).to have_content(presentation.conference.name)
   end
+
+  it 'has a link to update the presentation' do
+    presentation = create(:presentation)
+
+    visit "/presentations/#{presentation.id}"
+
+    expect(page).to have_link('Update Presentation')
+
+    click_link('Update Presentation')
+
+    expect(current_path).to eq("presentation/#{presentation.id}/edit")
+  end
 end
