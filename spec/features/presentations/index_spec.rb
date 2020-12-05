@@ -58,7 +58,7 @@ describe 'presentations index page' do
     presentation_4 = create(:presentation, created_at: DateTime.parse("20201202"))
 
     visit "/presentations"
-    
+
     expect(presentation_2.name).to appear_before(presentation_1.name)
     expect(presentation_4.name).to appear_before(presentation_2.name)
     expect(presentation_3.name).to appear_before(presentation_4.name)
@@ -77,5 +77,21 @@ describe 'presentations index page' do
     visit "/presentations"
 
     expect(page).to have_content(presentation_1.created_at.strftime('%m-%d-%Y %H:%M'))
+  end
+
+  it 'displays a count of the number of presentations associated with the conference' do
+    conference = create(:conference)
+    presentation_1 = create(:presentation, conference: conference)
+    presentation_2 = create(:presentation, conference: conference)
+    presentation_3 = create(:presentation, conference: conference)
+
+    visit "/conferences/#{conferenc.id}/presentations"
+
+    expect(page).to have_content("3 presentations")
+
+    presentation_4 = create(:presentation, conference: conference)
+    refresh
+
+    expect(page).to have_content("4 presentations")
   end
 end
