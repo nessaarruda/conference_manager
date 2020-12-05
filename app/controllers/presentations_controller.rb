@@ -40,6 +40,11 @@ class PresentationsController < ApplicationController
     redirect_to "/presentations/#{params[:id]}"
   end
 
+  def destroy
+    Presentation.destroy(params[:id])
+    redirect_to '/presentations'
+  end
+
   private
   def get_conference
     Conference.find(params[:id])
