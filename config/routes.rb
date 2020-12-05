@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   # get '/presentations/new', to: 'presentations#new'
   get '/presentations/:id', to: 'presentations#show'
   post '/presentations', to: 'presentations#create'
+  get '/presentations/:id/edit', to: 'presentations#edit'
+  patch '/presentations/:id', to: 'presentations#update'
 end

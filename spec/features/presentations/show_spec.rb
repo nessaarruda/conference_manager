@@ -22,6 +22,6 @@ RSpec.describe 'show presentation page' do
 
     click_link('Update Presentation')
 
-    expect(current_path).to eq("presentation/#{presentation.id}/edit")
+    expect(current_path).to eq("/presentations/#{presentation.id}/edit")
   end
 end

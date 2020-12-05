@@ -33,7 +33,6 @@ describe 'edit presentation page' do
     expect(page).to have_current_path("/presentations/#{presentation.id}")
     expect(page).to have_content("Jeff Casimir")
     expect(page).to have_content("lecture")
-    expect(page).to have_content("false")
   end
 
   it 'allows you to individual attributes of the presentation' do
