@@ -9,10 +9,8 @@ describe 'show conference page' do
     expect(page).to have_content(conference_1.name)
     expect(page).to have_content(conference_1.organization)
     expect(page).to have_content(conference_1.size)
-    conf_start = conference_1.start_date.strftime("%b %e, %Y")
-    conf_end = conference_1.end_date.strftime("%b %e, %Y")
-    expect(page).to have_content(conf_start.strip)
-    expect(page).to have_content(conf_end)
+    conference_dates = "#{conference_1.start_date.strftime("%b %d, %Y")} to #{conf_end = conference_1.end_date.strftime("%b %d, %Y")}"
+    expect(page).to have_content(conference_dates)
   end
 
   it 'has a link to update the conference' do
