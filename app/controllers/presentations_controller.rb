@@ -3,7 +3,7 @@ class PresentationsController < ApplicationController
     if params[:id]
       @presentations = get_conference.presentations
     else
-      @presentations = Presentation.all
+      @presentations = Presentation.order(created_at: :desc)
     end
   end
 

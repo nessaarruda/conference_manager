@@ -11,14 +11,16 @@ describe 'presentations index page' do
     expect(page).to have_content("Presentation List")
     expect(page).to have_table('presentations')
     within_table('presentations') do
-      expect(page.all('td')[0]).to have_content(presentation_1.name)
-      expect(page.all('td')[1]).to have_content(presentation_1.presenter)
-      expect(page.all('td')[2]).to have_content(presentation_1.category)
-      expect(page.all('td')[3]).to have_content(presentation_1.projector_needed)
-      expect(page.all('td')[4]).to have_content(presentation_1.created_at)
-      expect(page.all('td')[5]).to have_content(presentation_1.updated_at)
+      expect(page.all('td')[0]).to have_content(presentation_3.name)
+      expect(page.all('td')[1]).to have_content(presentation_3.presenter)
+      expect(page.all('td')[2]).to have_content(presentation_3.category)
+      expect(page.all('td')[3]).to have_content(presentation_3.projector_needed)
+      created = presentation_3.created_at.strftime('%m-%d-%Y %H:%M')
+      expect(page.all('td')[4]).to have_content(created)
+      updated = presentation_3.updated_at.strftime('%m-%d-%Y %H:%M')
+      expect(page.all('td')[5]).to have_content(updated)
       expect(page.all('td')[6]).to have_content(presentation_2.name)
-      expect(page.all('td')[12]).to have_content(presentation_3.name)
+      expect(page.all('td')[12]).to have_content(presentation_1.name)
     end
   end
 
@@ -56,7 +58,7 @@ describe 'presentations index page' do
     presentation_4 = create(:presentation, created_at: DateTime.parse("20201202"))
 
     visit "/presentations"
-
+    
     expect(presentation_2.name).to appear_before(presentation_1.name)
     expect(presentation_4.name).to appear_before(presentation_2.name)
     expect(presentation_3.name).to appear_before(presentation_4.name)

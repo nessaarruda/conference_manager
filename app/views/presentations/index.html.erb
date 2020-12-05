@@ -21,8 +21,8 @@
       <td><%= presentation.presenter %></td>
       <td><%= presentation.category %></td>
       <td><%= presentation.projector_needed %></td>
-      <td><%= presentation.created_at %></td>
-      <td><%= presentation.updated_at %></td>
+      <td style='font-size:80%'><%= presentation.created_at.strftime('%m-%d-%Y %H:%M') %></td>
+      <td style='font-size:80%'><%= presentation.updated_at.strftime('%m-%d-%Y %H:%M') %></td>
     </tr>
   <% end %>
 </table>
