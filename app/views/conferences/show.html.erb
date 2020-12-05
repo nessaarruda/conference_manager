@@ -1,8 +1,8 @@
 <h1><%= @conference.name %></h1>
 
 <h2><%= @conference.organization %></h2>
-<p><%= "#{@conference.start_date.strftime("%b %e, %Y")}
-  to #{@conference.end_date.strftime("%b %e, %Y")}" %></p>
+<p><%= "#{@conference.start_date.strftime("%b %d, %Y")}
+  to #{@conference.end_date.strftime("%b %d, %Y")}" %></p>
 <p>Expected Attendance: <%= @conference.size %></p>
 <br>
 <a href='/conferences/<%= @conference.id %>/edit'>Update Conference</a>

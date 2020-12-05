@@ -1,5 +1,11 @@
 <h1>Conference List</h1>
 
+<form action='/conferences' method='get'>
+  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <label for='number_filter'>Display conferences with attendance above: </label>
+  <input type='bigint' id='number_filter' name='attendees'>
+  <input type='submit' value='Apply Filter'>
+</form>
 <% @conferences.each do |conference| %>
   <div style='border:1px dashed'>
     <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>

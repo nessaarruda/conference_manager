@@ -1,6 +1,6 @@
 class ConferencesController < ApplicationController
   def index
-    @conferences = Conference.order(created_at: :desc)
+    @conferences = Conference.where('size >= ?', (params[:attendees] || 0)).order(created_at: :desc)
   end
 
   def show
