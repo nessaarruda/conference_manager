@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   patch '/meeting_rooms/:id', to: 'meeting_rooms#update'
   delete '/meeting_rooms/:id', to: 'meeting_rooms#destroy'
 
-  get '/meetings', to:'meetings#index'
-  get '/meetings/:id/meetings', to: 'meetings#index'
+  get '/meetings', to: 'meetings#index'
+  get '/meeting_rooms/:id/meetings/new', to: 'meetings#new'
+  get '/meeting_rooms/:id/meetings', to: 'meetings#index'
+  get '/meetings/:id', to: 'meetings#show'
+  post '/meetings', to: 'meetings#create'
 end

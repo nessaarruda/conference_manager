@@ -8,16 +8,16 @@ describe 'As a visitor' do
                                       capacity: 30
                                     )
       meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
-                                  schedule: "Monday, 10am",
                                   number_of_participants: 10,
-                                  duration: "1 hour")
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
     visit '/meetings'
 
     expect(page).to have_content("Meetings")
     expect(page).to have_content(meeting_1.name)
-    expect(page).to have_content(meeting_1.schedule)
+    expect(page).to have_content(meeting_1.start_time)
     expect(page).to have_content(meeting_1.number_of_participants)
-    expect(page).to have_content(meeting_1.duration)
+    expect(page).to have_content(meeting_1.end_time)
     end
   end
 
@@ -27,13 +27,27 @@ describe 'As a visitor' do
                                     capacity: 30
                                   )
     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
-                                schedule: "Monday, 10am",
                                 number_of_participants: 10,
-                                duration: "1 hour")
+                                start_time: "Monday, 10am",
+                              end_time: "1 hour")
 
-    visit "/meetings/#{meeting_1.id}/meetings"
+    visit "/meeting_rooms/#{meeting_1.id}/meetings"
 
     expect(page).to have_content(meeting_1.name)
   end
 
+  it 'has a link to add a new meeting' do
+    meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                    has_projector: true,
+                                    capacity: 30
+                                  )
+
+   visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
+
+   expect(page).to have_link("Create Meeting")
+
+   click_link("Create Meeting")
+
+   expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings/new")
+ end
 end
