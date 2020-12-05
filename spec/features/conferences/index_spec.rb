@@ -25,4 +25,23 @@ describe 'index conferences page' do
 
     expect(page).to have_current_path('/conferences/new')
   end
+
+  it 'displays records in order by recency of creation' do
+    conference_1 = create(:conference, created_at: DateTime.parse("20201101"))
+    conference_2 = create(:conference, created_at: DateTime.parse("20201201"))
+    conference_3 = create(:conference, created_at: DateTime.parse("20201203"))
+    conference_4 = create(:conference, created_at: DateTime.parse("20201202"))
+
+    visit "/conferences"
+
+    expect(conference_2.name).to appear_before(conference_1.name)
+    expect(conference_4.name).to appear_before(conference_2.name)
+    expect(conference_3.name).to appear_before(conference_4.name)
+
+    conference_5 = create(:conference)
+
+    refresh
+
+    expect(conference_5.name).to appear_before(conference_3.name)
+  end
 end
