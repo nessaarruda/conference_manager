@@ -94,4 +94,16 @@ describe 'presentations index page' do
 
     expect(page).to have_content("4 presentations")
   end
+
+  it 'displays presentations with a boolean val of "true" before those with "false"' do
+    conference = create(:conference)
+    presentation_1 = create(:presentation, conference: conference, projector_needed: false)
+    presentation_2 = create(:presentation, conference: conference, projector_needed: true)
+    presentation_3 = create(:presentation, conference: conference, projector_needed: false)
+
+    visit "/conferences/#{conference.id}/presentations"
+
+    expect(presentation_2.name).to appear_before(presentation_1.name)
+    expect(presentation_2.name).to appear_before(presentation_3.name)
+  end
 end
