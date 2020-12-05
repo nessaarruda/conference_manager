@@ -1,6 +1,6 @@
 class ConferencesController < ApplicationController
   def index
-    @conferences = Conference.all
+    @conferences = Conference.order(created_at: :desc)
   end
 
   def show

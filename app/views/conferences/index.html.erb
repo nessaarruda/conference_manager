@@ -1,9 +1,12 @@
 <h1>Conference List</h1>
 
 <% @conferences.each do |conference| %>
-  <h3><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h3>
-  <p><%= "#{conference.start_date.strftime("%b %e, %Y")}
-    to #{conference.end_date.strftime("%b %e, %Y")}" %></p>
+  <div style='border:1px dashed'>
+    <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>
+    <h3><%= "#{conference.start_date.strftime("%b %e, %Y")}
+      to #{conference.end_date.strftime("%b %e, %Y")}" %></h3>
+    <p style='font-size:80%'><%= "added: #{conference.created_at.strftime('%m-%d-%Y %H:%M')}" %></p>
+  </div>
 <% end %>
 <br>
 <a href='/conferences/new'>New Conference</a>

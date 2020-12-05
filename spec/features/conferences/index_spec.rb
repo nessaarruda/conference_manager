@@ -44,4 +44,13 @@ describe 'index conferences page' do
 
     expect(conference_5.name).to appear_before(conference_3.name)
   end
+
+  it 'displays the date each conference was created' do
+    conference_1 = create(:conference, created_at: DateTime.parse("20201101"))
+    conference_2 = create(:conference, created_at: DateTime.parse("20201201"))
+
+    visit "/conferences"
+
+    expect(page).to have_content(conference_1.created_at.strftime('%m-%d-%Y %H:%M'))
+  end
 end
