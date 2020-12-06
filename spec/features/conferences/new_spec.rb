@@ -39,4 +39,38 @@ describe 'new conference page' do
     expect(page).to have_current_path('/conferences')
     expect(page).to have_content(conference.name)
   end
+
+  describe 'site navigation' do
+    it 'has a navigation bar with links to other index pages' do
+      visit "/conferences/new"
+
+      expect(page).to have_link("Conference Manager Home")
+      expect(page).to have_link("Conferences")
+      expect(page).to have_link("Meeting Rooms")
+    end
+
+    it 'navigates to the welcome page' do
+      visit "/conferences/new"
+
+      click_on("Conference Manager Home")
+
+      expect(page).to have_current_path('/')
+    end
+
+    it 'navigates to the conferences page' do
+      visit "/conferences/new"
+
+      click_on("Conferences")
+
+      expect(page).to have_current_path('/conferences')
+    end
+
+    it 'navigates to the meeting rooms page' do
+      visit "/conferences/new"
+
+      click_on("Meeting Rooms")
+
+      expect(page).to have_current_path('/meeting_rooms')
+    end
+  end
 end

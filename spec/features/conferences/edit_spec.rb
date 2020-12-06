@@ -52,4 +52,46 @@ describe 'edit conference page' do
     conf_end = conference_1.end_date.strftime("%b %e, %Y")
     expect(page).to have_content("Jan 17, 2021 to #{conf_end}")
   end
+
+  describe 'site navigation' do
+    it 'has a navigation bar with links to other index pages' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/edit"
+
+      expect(page).to have_link("Conference Manager Home")
+      expect(page).to have_link("Conferences")
+      expect(page).to have_link("Meeting Rooms")
+    end
+
+    it 'navigates to the welcome page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/edit"
+
+      click_on("Conference Manager Home")
+
+      expect(page).to have_current_path('/')
+    end
+
+    it 'navigates to the conferences page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/edit"
+
+      click_on("Conferences")
+
+      expect(page).to have_current_path('/conferences')
+    end
+
+    it 'navigates to the meeting rooms page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/edit"
+
+      click_on("Meeting Rooms")
+
+      expect(page).to have_current_path('/meeting_rooms')
+    end
+  end
 end

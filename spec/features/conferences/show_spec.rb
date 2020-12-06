@@ -37,4 +37,58 @@ describe 'show conference page' do
     expect(page).to have_current_path("/conferences")
     expect(page).not_to have_content(conference_1.name)
   end
+
+  describe 'site navigation' do
+    it 'has a navigation bar with links to other index pages' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      expect(page).to have_link("Conference Manager Home")
+      expect(page).to have_link("Conferences")
+      expect(page).to have_link("Meeting Rooms")
+    end
+
+    it 'navigates to the welcome page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      click_on("Conference Manager Home")
+
+      expect(page).to have_current_path('/')
+    end
+
+    it 'navigates to the conferences page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      click_on("Conferences")
+
+      expect(page).to have_current_path('/conferences')
+    end
+
+    it 'navigates to the meeting rooms page' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      click_on("Meeting Rooms")
+
+      expect(page).to have_current_path('/meeting_rooms')
+    end
+
+    it 'has a link to view its presentations' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      expect(page).to have_link("View Presentations")
+
+      click_on("View Presentations")
+
+      expect(page).to have_current_path("/conferences/#{conference.id}/presentations")
+    end
+  end
 end
