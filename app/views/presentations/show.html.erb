@@ -1,6 +1,16 @@
-<h1><%= @presentation.conference.name %></h1>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+  </nav>
+</header>
 
-<h2><%= @presentation.name %></h2>
+<h2>
+  <a href="/conferences/<%= @presentation.conference.id %>"><%= @presentation.conference.name %></a>
+  </h2>
+
+<h1><%= @presentation.name %></h1>
 <h3>Presenter: <%= @presentation.presenter %></h3>
 <h3>Category: <%= @presentation.category %></h3>
 

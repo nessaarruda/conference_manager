@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'show conference page' do
+describe 'Show Conference page' do
   it 'displays the conference with that id and its attributes' do
     conference_1 = create(:conference)
 

@@ -1,5 +1,13 @@
-<h1><%= @conference.name %></h1>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+  </nav>
+</header>
 
+<h1><%= @conference.name %></h1>
+<a href="/conferences/<%= @conference.id %>/presentations">View Presentations</a>
 <h2><%= @conference.organization %></h2>
 <p><%= "#{@conference.start_date.strftime("%b %d, %Y")}
   to #{@conference.end_date.strftime("%b %d, %Y")}" %></p>

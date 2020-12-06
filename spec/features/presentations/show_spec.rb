@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'show presentation page' do
+describe 'Show Presentation page' do
   it 'displays the presentation with a given id and its attributes' do
     presentation = create(:presentation)
 
