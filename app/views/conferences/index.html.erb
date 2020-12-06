@@ -29,7 +29,12 @@
     <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>
     <h3><%= "#{conference.start_date.strftime("%b %e, %Y")}
       to #{conference.end_date.strftime("%b %e, %Y")}" %></h3>
-    <a href="/conferences/<%= conference.id %>/edit?src=index">Update Conference</a> 
+    <a href="/conferences/<%= conference.id %>/edit?src=index">Update Conference</a>
+    <form action='/conferences/<%= conference.id %>' method="post">
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='hidden' name='_method' value="DELETE">
+      <input type='submit' value='Delete Conference'/>
+    </form>
     <p style='font-size:80%'><%= "#{conference.presentations.count} presentations" %></p>
     <p style='font-size:80%'><%= "added: #{conference.created_at.strftime('%m-%d-%Y %H:%M')}" %></p>
   </div>

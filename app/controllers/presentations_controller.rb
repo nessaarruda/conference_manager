@@ -1,10 +1,10 @@
 class PresentationsController < ApplicationController
   def index
-    if params["sort"] && params[:id]
+    if params[:sort] && params[:id]
       @presentations = Presentation.where(conference_id: params[:id]).order(:name, projector_needed: :desc, created_at: :desc)
     elsif params[:id]
       @presentations = Presentation.where(conference_id: params[:id]).order(projector_needed: :desc, created_at: :desc)
-    elsif params["sort"]
+    elsif params[:sort]
       @presentations = Presentation.order(:name, created_at: :desc)
     else
       @presentations = Presentation.order(created_at: :desc)
@@ -41,11 +41,21 @@ class PresentationsController < ApplicationController
       category: params[:presentation][:category],
       projector_needed: params[:presentation][:projector_needed],
       })
-    redirect_to "/presentations/#{params[:id]}"
+    if params[:src] == "index"
+      redirect_to "/presentations"
+    elsif params[:src] != ""
+      redirect_to "/conferences/#{params[:src]}/presentations"
+    else
+      redirect_to "/presentations/#{params[:id]}"
+    end
   end
 
   def destroy
     Presentation.destroy(params[:id])
-    redirect_to '/presentations'
+    if params[:src].to_i > 0
+      redirect_to "/conferences/#{params[:src]}/presentations"
+    else
+      redirect_to '/presentations'
+    end
   end
 end

@@ -10,8 +10,8 @@ describe 'presentations index page' do
 
     expect(page).to have_content("Presentation List")
     expect(page).to have_table('presentations')
-    within_table('presentations') do
-      expect(page.all('td')[0]).to have_content(presentation_3.name)
+    within('#row-0') do
+      expect(page).to have_content(presentation_3.name)
       expect(page.all('td')[1]).to have_content(presentation_3.presenter)
       expect(page.all('td')[2]).to have_content(presentation_3.category)
       expect(page.all('td')[3]).to have_content(presentation_3.projector_needed)
@@ -19,9 +19,9 @@ describe 'presentations index page' do
       expect(page.all('td')[4]).to have_content(created)
       updated = presentation_3.updated_at.strftime('%m-%d-%Y %H:%M')
       expect(page.all('td')[5]).to have_content(updated)
-      expect(page.all('td')[6]).to have_content(presentation_2.name)
-      expect(page.all('td')[12]).to have_content(presentation_1.name)
     end
+    within('#row-1') { expect(page).to have_content(presentation_2.name) }
+    within('#row-2') { expect(page).to have_content(presentation_1.name) }
   end
 
   it 'can show the presentations associated with a given conference' do
@@ -147,7 +147,7 @@ describe 'presentations index page' do
     presentation_1 = create(:presentation)
     presentation_2 = create(:presentation)
     presentation_3 = create(:presentation)
-    presentation_4 = create(:presentation)
+    presentation_4 = create(:presentation, projector_needed: true)
 
     visit '/presentations'
 
@@ -165,12 +165,12 @@ describe 'presentations index page' do
     expect(page).to have_current_path("/presentations")
   end
 
-  xit 'has a links to edit each presentation from the presentations index for a conference' do
+  it 'has a links to edit each presentation from the presentations index for a conference' do
     conference = create(:conference)
     presentation_1 = create(:presentation, conference: conference)
     presentation_2 = create(:presentation, conference: conference)
     presentation_3 = create(:presentation, conference: conference)
-    presentation_4 = create(:presentation, conference: conference)
+    presentation_4 = create(:presentation, conference: conference, projector_needed: true)
 
     visit "/conferences/#{conference.id}/presentations"
 
@@ -181,18 +181,18 @@ describe 'presentations index page' do
 
     within('#row-0') { click_on("Update Presentation") }
 
-    expect(page).to have_current_path("/presentations/#{presentation_4.id}/edit?src=conf")
+    expect(current_path).to eq("/presentations/#{presentation_4.id}/edit")
 
     click_on("Update Presentation")
 
     expect(page).to have_current_path("/conferences/#{conference.id}/presentations")
   end
 
-  xit 'has a link to delete each presentation' do
+  it 'has a link to delete each presentation' do
     presentation_1 = create(:presentation)
     presentation_2 = create(:presentation)
     presentation_3 = create(:presentation)
-    presentation_4 = create(:presentation)
+    presentation_4 = create(:presentation, projector_needed: true)
 
     visit '/presentations'
 
@@ -207,11 +207,12 @@ describe 'presentations index page' do
     expect(page).not_to have_content(presentation_4.name)
   end
 
-  xit 'has a links to delete conferences on the presentation index for a conference' do
-    presentation_1 = create(:presentation)
-    presentation_2 = create(:presentation)
-    presentation_3 = create(:presentation)
-    presentation_4 = create(:presentation)
+  it 'has a links to delete conferences on the presentation index for a conference' do
+    conference = create(:conference)
+    presentation_1 = create(:presentation, conference: conference)
+    presentation_2 = create(:presentation, conference: conference)
+    presentation_3 = create(:presentation, conference: conference)
+    presentation_4 = create(:presentation, conference: conference, projector_needed: true)
 
     visit "/conferences/#{conference.id}/presentations"
 
