@@ -123,9 +123,13 @@ describe 'index conferences page' do
     within('#row-2') { expect(page).to have_link("Update Conference") }
     within('#row-3') { expect(page).to have_link("Update Conference") }
 
+    within('#row-0') { click_on("Update Conference") }
+
+    expect(page).to have_current_path("/conferences/#{conference_4.id}/edit?src=index")
+
     click_on("Update Conference")
 
-    expect(page).to have_current_path("/conferences/#{conference_4.id}/edit")
+    expect(page).to have_current_path("/conferences")
   end
 
   it 'has a link to delete each conference' do

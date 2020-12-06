@@ -36,7 +36,11 @@ class ConferencesController < ApplicationController
       start_date: params[:conference][:start_date],
       end_date: params[:conference][:end_date]
       })
-    redirect_to "/conferences/#{conference.id}"
+    if params[:src] == 'index'
+      redirect_to "/conferences"
+    else
+      redirect_to "/conferences/#{conference.id}"
+    end
   end
 
   def destroy

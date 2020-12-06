@@ -15,5 +15,6 @@
     <label for='end'> to </label>
     <input id='end' type='date' name='conference[end_date]' value=<%= @conference.end_date %>/><br/>
   </div>
+  <input type='hidden' name='src' value='<%= params[:src] %>'>
   <input type='submit' value='Update Conference'/>
 </form>

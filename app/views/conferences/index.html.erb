@@ -29,6 +29,7 @@
     <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>
     <h3><%= "#{conference.start_date.strftime("%b %e, %Y")}
       to #{conference.end_date.strftime("%b %e, %Y")}" %></h3>
+    <a href="/conferences/<%= conference.id %>/edit?src=index">Update Conference</a> 
     <p style='font-size:80%'><%= "#{conference.presentations.count} presentations" %></p>
     <p style='font-size:80%'><%= "added: #{conference.created_at.strftime('%m-%d-%Y %H:%M')}" %></p>
   </div>
