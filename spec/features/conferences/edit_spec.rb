@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'edit conference page' do
+describe 'Edit Conference page' do
   it 'has a form to edit the attributes of the conference' do
     conference_1 = create(:conference)
 

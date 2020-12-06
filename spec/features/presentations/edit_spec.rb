@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'edit presentation page' do
+describe 'Edit Presentation page' do
   it 'has a form to edit the presentation' do
     presentation = create(:presentation)
 
