@@ -14,8 +14,8 @@ class ConferencesController < ApplicationController
 
   def create
     conference = Conference.create({
-      name: params[:conference][:name],
-      organization: params[:conference][:organization],
+      name: params[:conference][:name].titleize,
+      organization: params[:conference][:organization].titleize,
       size: params[:conference][:size],
       start_date: params[:conference][:start_date],
       end_date: params[:conference][:end_date]

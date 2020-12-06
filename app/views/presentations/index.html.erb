@@ -7,6 +7,7 @@
 <h1>Presentation List</h1>
 
 <p><%= "#{@presentations.count} presentations" %></p>
+<a href='/conferences/<%= params[:id] %>/presentations?sort=true'>Display in Alphabetical Order by Name</a>
 <table id='presentations'>
   <tr>
     <th>Name</th>
