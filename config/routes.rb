@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/conferences/:id/presentations', to: 'presentations#index'
   get '/conferences/:id/presentations/new', to: 'presentations#new'
   post '/presentations', to: 'presentations#create'
+  get 'presentations/new', to: 'presentations#new'
   get '/presentations/:id', to: 'presentations#show'
   get '/presentations/:id/edit', to: 'presentations#edit'
   patch '/presentations/:id', to: 'presentations#update'

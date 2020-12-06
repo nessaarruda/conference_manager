@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'new presentation page' do
+describe 'New Presentation page' do
   it 'has a form to add a new presentation' do
     conference = create(:conference)
 
