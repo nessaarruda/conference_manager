@@ -1,18 +1,38 @@
+<head>
+  <style>
+    .filter_area {
+      display: inline;
+      padding: 3px;
+      border: 1px solid black;
+      background-color: lightgray
+    }
+    #filter_button {
+      background-color: lightgray;
+      outline: none;
+      border:none
+    }
+  </style>
+</head>
+<body>
 <h1>Conference List</h1>
-
 <form action='/conferences' method='get'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <label for='number_filter'>Display conferences with attendance above: </label>
-  <input type='bigint' id='number_filter' name='attendees'>
-  <input type='submit' value='Apply Filter'>
-</form>
-<% @conferences.each do |conference| %>
-  <div style='border:1px dashed'>
+  <div class='filter_area'>
+    Only return records with more than
+    <input type='bigint' id='number_filter' name='attendees' value='<%= params[:attendees] %>'>
+    <input id='filter_button' type='submit' value='attendees'>
+  </div>
+</form><br>
+<a href='/conferences?sort=true'>Sort by Number of Presentations</a>
+<% @conferences.each_with_index do |conference, index| %>
+  <div id='<%= "row-#{index}" %>' style='border:1px dashed'>
     <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>
     <h3><%= "#{conference.start_date.strftime("%b %e, %Y")}
       to #{conference.end_date.strftime("%b %e, %Y")}" %></h3>
+    <p style='font-size:80%'><%= "#{conference.presentations.count} presentations" %></p>
     <p style='font-size:80%'><%= "added: #{conference.created_at.strftime('%m-%d-%Y %H:%M')}" %></p>
   </div>
 <% end %>
 <br>
 <a href='/conferences/new'>New Conference</a>
+</body>

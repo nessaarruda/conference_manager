@@ -16,8 +16,8 @@
     <th>created</th>
     <th>updated</th>
   </tr>
-  <% @presentations.each do |presentation| %>
-    <tr>
+  <% @presentations.each_with_index do |presentation, index| %>
+    <tr id='<%= "row-#{index}" %>'>
       <td><a href="/presentations/<%= presentation.id %>"><%= presentation.name %></td>
       <td><%= presentation.presenter %></td>
       <td><%= presentation.category %></td>

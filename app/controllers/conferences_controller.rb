@@ -1,6 +1,11 @@
 class ConferencesController < ApplicationController
   def index
-    @conferences = Conference.where('size >= ?', (params[:attendees] || 0)).order(created_at: :desc)
+    if params["sort"]
+      @conferences = Conference.select("conferences.*, count(*) AS count").joins(:presentations).group(:id).order(count: :desc)
+       # "SELECT conferences.*, count(*) AS count FROM conferences INNER JOIN presentations ON conferences.id=presentations.conference_id GROUP BY conferences.id ORDER BY count DESC;"
+    else
+      @conferences = Conference.where('size >= ?', (params[:attendees] || 0)).order(created_at: :desc)
+    end
   end
 
   def show
