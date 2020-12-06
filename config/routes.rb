@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   get '/presentations/:id/edit', to: 'presentations#edit'
   patch '/presentations/:id', to: 'presentations#update'
   delete '/presentations/:id', to: 'presentations#destroy'
+
+  get '/meeting_rooms', to: 'meeting_rooms#index'
 end

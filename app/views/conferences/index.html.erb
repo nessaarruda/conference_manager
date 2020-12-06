@@ -14,6 +14,13 @@
   </style>
 </head>
 <body>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+  </nav>
+</header>
 <h1>Conference List</h1>
 <form action='/conferences' method='get'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
@@ -24,6 +31,7 @@
   </div>
 </form><br>
 <a href='/conferences?sort=true'>Sort by Number of Presentations</a>
+<a href='/presentations'>View All Presentations</a>
 <% @conferences.each_with_index do |conference, index| %>
   <div id='<%= "row-#{index}" %>' style='border:1px dashed'>
     <h2><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h2>
