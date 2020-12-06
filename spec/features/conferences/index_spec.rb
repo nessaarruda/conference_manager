@@ -109,4 +109,41 @@ describe 'index conferences page' do
     within('#row-2') { expect(page).to have_content("2 presentations") }
     within('#row-3') { expect(page).to have_content("1 presentations") }
   end
+
+  it 'has a link to the edit page for each conference' do
+    conference_1 = create(:conference)
+    conference_2 = create(:conference)
+    conference_3 = create(:conference)
+    conference_4 = create(:conference)
+
+    visit '/conferences'
+
+    within('#row-0') { expect(page).to have_link("Update Conference") }
+    within('#row-1') { expect(page).to have_link("Update Conference") }
+    within('#row-2') { expect(page).to have_link("Update Conference") }
+    within('#row-3') { expect(page).to have_link("Update Conference") }
+
+    click_on("Update Conference")
+
+    expect(page).to have_current_path("/conferences/#{conference_4.id}/edit")
+  end
+
+  it 'has a link to delete each conference' do
+    conference_1 = create(:conference)
+    conference_2 = create(:conference)
+    conference_3 = create(:conference)
+    conference_4 = create(:conference)
+
+    visit '/conferences'
+
+    within('#row-0') { expect(page).to have_link("Delete Conference") }
+    within('#row-1') { expect(page).to have_link("Delete Conference") }
+    within('#row-2') { expect(page).to have_link("Delete Conference") }
+    within('#row-3') { expect(page).to have_link("Delete Conference") }
+
+    within('#row-0') { click_on("Delete Conference") }
+
+    expect(page).to have_current_path('/conferences')
+    expect(page).not_to have_content(conference_4.name)
+  end
 end
