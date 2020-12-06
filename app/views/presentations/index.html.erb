@@ -38,7 +38,7 @@
       <tr id='<%= "row-#{index}" %>'>
         <td><a href="/presentations/<%= presentation.id %>"><%= presentation.name %></td>
         <td><%= presentation.presenter %></td>
-        <td><a href="conferences/<%= presentation.conference.id %>"><%= presentation.conference.name %></td>
+        <td><a href="/conferences/<%= presentation.conference.id %>"><%= presentation.conference.name %></td>
         <td><%= presentation.category %></td>
         <td><%= presentation.projector_needed %></td>
         <td style='font-size:80%'><%= presentation.created_at.strftime('%m-%d-%Y %H:%M') %></td>
