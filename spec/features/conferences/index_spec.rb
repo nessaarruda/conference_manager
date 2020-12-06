@@ -155,6 +155,21 @@ describe 'Conferences Index' do
       expect(page).to have_current_path('/conferences')
       expect(page).not_to have_content(conference_4.name)
     end
+
+    it 'deletes dependent presentation records when a conference is deleted' do
+      conference = create(:conference)
+      presentation = create(:presentation, conference: conference)
+
+      visit '/conferences'
+
+      click_on("Delete Conference")
+
+      expect(page).to have_current_path('/conferences')
+
+      visit('/presentations')
+
+      expect(page).not_to have_content(presentation.name)
+    end
   end
 
   describe 'site navigation' do
