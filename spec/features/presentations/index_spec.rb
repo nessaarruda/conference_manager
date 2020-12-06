@@ -142,4 +142,87 @@ describe 'presentations index page' do
     expect(sorted_names[0]).to appear_before(sorted_names[1])
     expect(sorted_names[1]).to appear_before(sorted_names[2])
   end
+
+  it 'has a link to the edit page for each presentation' do
+    presentation_1 = create(:presentation)
+    presentation_2 = create(:presentation)
+    presentation_3 = create(:presentation)
+    presentation_4 = create(:presentation)
+
+    visit '/presentations'
+
+    within('#row-0') { expect(page).to have_link("Update Presentation") }
+    within('#row-1') { expect(page).to have_link("Update Presentation") }
+    within('#row-2') { expect(page).to have_link("Update Presentation") }
+    within('#row-3') { expect(page).to have_link("Update Presentation") }
+
+    within('#row-0') { click_on("Update Presentation") }
+
+    expect(page).to have_current_path("/presentations/#{presentation_4.id}/edit?src=index")
+
+    click_on("Update Presentation")
+
+    expect(page).to have_current_path("/presentations")
+  end
+
+  xit 'has a links to edit each presentation from the presentations index for a conference' do
+    conference = create(:conference)
+    presentation_1 = create(:presentation, conference: conference)
+    presentation_2 = create(:presentation, conference: conference)
+    presentation_3 = create(:presentation, conference: conference)
+    presentation_4 = create(:presentation, conference: conference)
+
+    visit "/conferences/#{conference.id}/presentations"
+
+    within('#row-0') { expect(page).to have_link("Update Presentation") }
+    within('#row-1') { expect(page).to have_link("Update Presentation") }
+    within('#row-2') { expect(page).to have_link("Update Presentation") }
+    within('#row-3') { expect(page).to have_link("Update Presentation") }
+
+    within('#row-0') { click_on("Update Presentation") }
+
+    expect(page).to have_current_path("/presentations/#{presentation_4.id}/edit?src=conf")
+
+    click_on("Update Presentation")
+
+    expect(page).to have_current_path("/conferences/#{conference.id}/presentations")
+  end
+
+  xit 'has a link to delete each presentation' do
+    presentation_1 = create(:presentation)
+    presentation_2 = create(:presentation)
+    presentation_3 = create(:presentation)
+    presentation_4 = create(:presentation)
+
+    visit '/presentations'
+
+    within('#row-0') { expect(page).to have_button("Delete Presentation") }
+    within('#row-1') { expect(page).to have_button("Delete Presentation") }
+    within('#row-2') { expect(page).to have_button("Delete Presentation") }
+    within('#row-3') { expect(page).to have_button("Delete Presentation") }
+
+    within('#row-0') { click_on("Delete Presentation") }
+
+    expect(page).to have_current_path('/presentations')
+    expect(page).not_to have_content(presentation_4.name)
+  end
+
+  xit 'has a links to delete conferences on the presentation index for a conference' do
+    presentation_1 = create(:presentation)
+    presentation_2 = create(:presentation)
+    presentation_3 = create(:presentation)
+    presentation_4 = create(:presentation)
+
+    visit "/conferences/#{conference.id}/presentations"
+
+    within('#row-0') { expect(page).to have_button("Delete Presentation") }
+    within('#row-1') { expect(page).to have_button("Delete Presentation") }
+    within('#row-2') { expect(page).to have_button("Delete Presentation") }
+    within('#row-3') { expect(page).to have_button("Delete Presentation") }
+
+    within('#row-0') { click_on("Delete Presentation") }
+
+    expect(page).to have_current_path("/conferences/#{conference.id}/presentations")
+    expect(page).not_to have_content(presentation_4.name)
+  end
 end

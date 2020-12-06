@@ -140,10 +140,10 @@ describe 'index conferences page' do
 
     visit '/conferences'
 
-    within('#row-0') { expect(page).to have_link("Delete Conference") }
-    within('#row-1') { expect(page).to have_link("Delete Conference") }
-    within('#row-2') { expect(page).to have_link("Delete Conference") }
-    within('#row-3') { expect(page).to have_link("Delete Conference") }
+    within('#row-0') { expect(page).to have_button("Delete Conference") }
+    within('#row-1') { expect(page).to have_button("Delete Conference") }
+    within('#row-2') { expect(page).to have_button("Delete Conference") }
+    within('#row-3') { expect(page).to have_button("Delete Conference") }
 
     within('#row-0') { click_on("Delete Conference") }
 
