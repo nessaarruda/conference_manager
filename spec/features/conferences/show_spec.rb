@@ -90,5 +90,17 @@ describe 'Show Conference page' do
 
       expect(page).to have_current_path("/conferences/#{conference.id}/presentations")
     end
+
+    it 'has a link to itself' do
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}"
+
+      expect(page).to have_link(conference.name)
+
+      click_on(conference.name)
+
+      expect(page).to have_current_path("/conferences/#{conference.id}")
+    end
   end
 end
