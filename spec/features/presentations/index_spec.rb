@@ -240,6 +240,8 @@ describe 'Presentations Index' do
       expect(page).to have_link("Conference Manager Home")
       expect(page).to have_link("Conferences")
       expect(page).to have_link("Meeting Rooms")
+      expect(page).to have_link("Presentations")
+      expect(page).to have_link("Meetings")
     end
 
     it 'navigates to the welcome page' do
@@ -264,6 +266,22 @@ describe 'Presentations Index' do
       click_on("Meeting Rooms")
 
       expect(page).to have_current_path('/meeting_rooms')
+    end
+
+    it 'navigates to the presentations page' do
+      visit '/presentations'
+
+      click_on("Presentations")
+
+      expect(page).to have_current_path('/presentations')
+    end
+
+    it 'navigates to the meetings page' do
+      visit '/presentations'
+
+      click_on("Meetings")
+
+      expect(page).to have_current_path('/meetings')
     end
 
     it 'has links to navigate to conferences' do

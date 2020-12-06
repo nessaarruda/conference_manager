@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   delete '/presentations/:id', to: 'presentations#destroy'
 
   get '/meeting_rooms', to: 'meeting_rooms#index'
+
+  get '/meetings', to: 'meetings#index'
 end
