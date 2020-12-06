@@ -108,11 +108,11 @@ describe 'presentations index page' do
     expect(presentation_3.name).to appear_before(presentation_1.name)
   end
 
-  it 'has a link to sort children in alphabetical order by name' do
+  it 'has a link to sort presentations in alphabetical order by name' do
     conference = create(:conference)
-    presentation_1 = create(:presentation, conference: conference, projector_needed: false)
-    presentation_2 = create(:presentation, conference: conference, projector_needed: true)
-    presentation_3 = create(:presentation, conference: conference, projector_needed: false)
+    presentation_1 = create(:presentation, conference: conference)
+    presentation_2 = create(:presentation, conference: conference)
+    presentation_3 = create(:presentation, conference: conference)
 
     visit "/conferences/#{conference.id}/presentations"
 
@@ -121,6 +121,23 @@ describe 'presentations index page' do
     click_link("Display in Alphabetical Order by Name")
 
     expect(current_path).to eq("/conferences/#{conference.id}/presentations")
+    sorted_names = [presentation_1.name, presentation_2.name, presentation_3.name].sort
+    expect(sorted_names[0]).to appear_before(sorted_names[1])
+    expect(sorted_names[1]).to appear_before(sorted_names[2])
+  end
+
+  it 'can sort all presentations by alphabetical order' do
+    presentation_1 = create(:presentation)
+    presentation_2 = create(:presentation)
+    presentation_3 = create(:presentation)
+
+    visit "/presentations"
+
+    expect(page).to have_link("Display in Alphabetical Order by Name")
+
+    click_link("Display in Alphabetical Order by Name")
+
+    expect(current_path).to eq("/presentations")
     sorted_names = [presentation_1.name, presentation_2.name, presentation_3.name].sort
     expect(sorted_names[0]).to appear_before(sorted_names[1])
     expect(sorted_names[1]).to appear_before(sorted_names[2])
