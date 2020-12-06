@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'new conference page' do
+describe 'New Conference page' do
   it 'displays a form for creating a new conference record' do
     visit '/conferences/new'
 
