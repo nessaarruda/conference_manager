@@ -11,7 +11,7 @@ describe Presentation do
 
     Conference.destroy(conference.id)
 
-    expect(conference).not_to exist
-    expect(presntation).not_to exist
+    expect(Conference.all).to eq([])
+    expect(Presentation.all).to eq([])
   end
 end
