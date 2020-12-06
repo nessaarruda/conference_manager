@@ -6,7 +6,9 @@
   </nav>
 </header>
 
-<h1><%= @conference.name %></h1>
+<h1>
+  <a href="/conferences/<%= @conference.id %>"><%= @conference.name %></a>
+</h1>
 <a href="/conferences/<%= @conference.id %>/presentations">View Presentations</a>
 <h2><%= @conference.organization %></h2>
 <p><%= "#{@conference.start_date.strftime("%b %d, %Y")}

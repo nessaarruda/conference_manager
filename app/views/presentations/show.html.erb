@@ -8,9 +8,11 @@
 
 <h2>
   <a href="/conferences/<%= @presentation.conference.id %>"><%= @presentation.conference.name %></a>
-  </h2>
+</h2>
 
-<h1><%= @presentation.name %></h1>
+<h1>
+  <a href="/presentations/<%= @presentation.id %>"><%= @presentation.name %></a>
+</h1>
 <h3>Presenter: <%= @presentation.presenter %></h3>
 <h3>Category: <%= @presentation.category %></h3>
 
