@@ -107,7 +107,7 @@ describe 'Conferences Index' do
       expect(page).to have_link("New Conference", href: '/conferences/new')
     end
 
-    it "navigates to the /conferences/ page from the link to create a new conference" do
+    it "navigates to the /conferences/new page from the link to create a new conference" do
       visit "/conferences"
 
       click_link("New Conference")
