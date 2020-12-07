@@ -33,7 +33,6 @@ class PresentationsController < ApplicationController
       category: params[:presentation][:category],
       projector_needed: params[:presentation][:projector_needed],
       })
-      require "pry"; binding.pry
     if params[:src] == "index"
       redirect_to "/presentations"
     elsif params[:src] != ""

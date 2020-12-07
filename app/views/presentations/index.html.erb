@@ -18,15 +18,9 @@
 
   <p><%= "#{@presentations.count} presentations" %></p>
 
-  <% if params[:id] %>
-    <a href='/conferences/<%= params[:id] %>/presentations?sort=true'>Display in Alphabetical Order by Name</a>
-  <% else %>
-    <a href='/presentations?sort=true'>Display in Alphabetical Order by Name</a>
-  <% end%>
-
   <table id='presentations'>
     <tr>
-      <th>Name</th>
+      <th>Name<br><%= link_to "Sort Alphabetically", :sort => "name" %></th>
       <th>Presenter</th>
       <th>Conference</th>
       <th>Category</th>
