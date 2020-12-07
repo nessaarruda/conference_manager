@@ -13,8 +13,8 @@ class PresentationsController < ApplicationController
   def create
     conference = Conference.find(params[:conference_id])
     conference.presentations.create({
-      name: params[:presentation][:name].titleize,
-      presenter: params[:presentation][:presenter].titleize,
+      name: params[:presentation][:name],
+      presenter: params[:presentation][:presenter],
       category: params[:presentation][:category],
       projector_needed: params[:presentation][:projector_needed],
       })
@@ -33,6 +33,7 @@ class PresentationsController < ApplicationController
       category: params[:presentation][:category],
       projector_needed: params[:presentation][:projector_needed],
       })
+      require "pry"; binding.pry
     if params[:src] == "index"
       redirect_to "/presentations"
     elsif params[:src] != ""

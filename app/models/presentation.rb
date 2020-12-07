@@ -8,4 +8,8 @@ class Presentation < ApplicationRecord
       all.order(params[:sort], projector_needed: :desc, created_at: :desc)
     end
   end
+
+  def name
+    self[:name].titleize
+  end
 end

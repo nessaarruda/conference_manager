@@ -38,4 +38,10 @@ describe Presentation do
     presentations = Presentation.select_presentations({})
     expect(presentations.to_set).to eq(Presentation.all.to_set)
   end
+
+  it 'titleizes attributes' do
+    presentation = create(:presentation, name: 'evolve best of breed eyeballs')
+
+    expect(presentation.name).to eq("Evolve Best Of Breed Eyeballs")
+  end
 end
