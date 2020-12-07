@@ -1,4 +1,4 @@
-<h1>Update <%= @meeting_room.name %></h1>
+<h1>Update Meeting Room </h1>
 
 <form action='/meeting_rooms/<%= @meeting_room.id %>' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
@@ -8,7 +8,6 @@
   <label for='capacity'>Capacity: </label>
   <input id='capacity' type='bigint' name='meeting_room[capacity]' value='<%= @meeting_room.capacity %>'/><br/>
   <label for='has_projector'>Has projector: </label>
-
   <input id='has_projector' type='boolean' name='meeting_room[has_projector]' value='<%= @meeting_room.has_projector %>'/><br/>
   <input type='submit' value='Update Meeting Room'/>
 </form>

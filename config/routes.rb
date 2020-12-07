@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   delete '/meeting_rooms/:id', to: 'meeting_rooms#destroy'
 
   get '/meetings', to: 'meetings#index'
-  get '/meeting_rooms/:id/meetings/new', to: 'meetings#new'
-  get '/meeting_rooms/:id/meetings', to: 'meetings#index'
-  get '/meetings/:id', to: 'meetings#show'
   post '/meetings', to: 'meetings#create'
+  get '/meetings/:id', to: 'meetings#show'
+  get '/meeting_rooms/:id/meetings', to: 'meetings#index'
+  get '/meeting_rooms/:id/meetings/new', to: 'meetings#new'
+  get '/meetings/:id/edit', to: 'meetings#edit'
+  patch '/meetings/:id', to: 'meetings#update'
 end

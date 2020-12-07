@@ -9,7 +9,7 @@ describe 'edit meeting_rooms page' do
 
     visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
-    expect(page).to have_content("Update #{meeting_room_1.name}")
+    expect(page).to have_content("Update Meeting Room")
     expect(page).to have_selector('form')
     expect(page).to have_text('Meeting Room name:')
     expect(page).to have_field('metname', type: 'text')

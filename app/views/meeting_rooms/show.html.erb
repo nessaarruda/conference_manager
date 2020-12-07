@@ -1,10 +1,8 @@
-<h1><%= @meeting_room.name %></h1>
+<a href="/meeting_rooms">Meeting Room Index</a>
 
-<p>Capacity: <%= @meeting_room.capacity %></p>
-<br>
-<a href='/meeting_rooms/<%= @meeting_room.id %>/edit'>Update Meeting Room</a>
-<form action='/meeting_rooms/<%= @meeting_room.id %>' method="post">
-  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-  <input type='hidden' name='_method' value="DELETE">
-  <input type='submit' value='Delete Meeting Room'/>
-</form>
+<h1>Name: <%= @meeting_room.name %></h1>
+<h2>Has Projector: <%= @meeting_room.has_projector %></h2>
+<h3>Capacity: <%= @meeting_room.capacity %></h3>
+
+<%= button_to 'Delete Meeting Room', "/meeting_rooms/#{@meeting_room.id}", method: :delete %>
+<a href="/meeting_rooms/<%= @meeting_room.id %>/edit">Update Meeting Room</a>
