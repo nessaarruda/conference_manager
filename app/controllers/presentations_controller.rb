@@ -1,14 +1,6 @@
 class PresentationsController < ApplicationController
   def index
-    if params[:sort] && params[:id]
-      @presentations = Presentation.where(conference_id: params[:id]).order(:name, projector_needed: :desc, created_at: :desc)
-    elsif params[:id]
-      @presentations = Presentation.where(conference_id: params[:id]).order(projector_needed: :desc, created_at: :desc)
-    elsif params[:sort]
-      @presentations = Presentation.order(:name, created_at: :desc)
-    else
-      @presentations = Presentation.order(created_at: :desc)
-    end
+    @presentations = Presentation.select_presentations(params)
   end
 
   def show

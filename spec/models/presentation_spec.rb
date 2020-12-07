@@ -14,4 +14,28 @@ describe Presentation do
     expect(Conference.all).to eq([])
     expect(Presentation.all).to eq([])
   end
+
+  it 'selects presentations' do
+    3.times do
+      conference = create(:conference)
+      5.times do
+        create(:presentation, conference: conference)
+      end
+    end
+    conference = Conference.first
+
+    presentations = Presentation.select_presentations({id: conference.id, sort: :name})
+    expect(presentations.to_set).to eq(conference.presentations.to_set)
+    expect(presentations.sort_by {|p| p.name}).to eq(presentations)
+
+    presentations = Presentation.select_presentations({id: conference.id})
+    expect(presentations.to_set).to eq(conference.presentations.to_set)
+
+    presentations = Presentation.select_presentations({sort: :name})
+    expect(presentations.to_set).to eq(Presentation.all.to_set)
+    expect(presentations.sort_by {|p| p.name}).to eq(presentations)
+
+    presentations = Presentation.select_presentations({})
+    expect(presentations.to_set).to eq(Presentation.all.to_set)
+  end
 end
