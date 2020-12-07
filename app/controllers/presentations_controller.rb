@@ -1,6 +1,6 @@
 class PresentationsController < ApplicationController
   def index
-    @presentations = Presentation.select_presentations(params)
+    @presentations = Presentation.select_presentations(params[:id], params[:sort])
   end
 
   def show
