@@ -28,7 +28,8 @@ describe 'Show Presentation page' do
   it 'can delete the presentation record' do
     presentation = create(:presentation)
 
-    visit "/presentations/#{presentation.id}"
+    visit "/presentations"
+    click_on(presentation.name)
 
     expect(page).to have_button("Delete Presentation")
 
