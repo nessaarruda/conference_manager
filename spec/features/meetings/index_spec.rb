@@ -42,6 +42,12 @@ describe 'As a visitor' do
                                     capacity: 30
                                   )
 
+    meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                number_of_participants: 10,
+                                start_time: "Monday, 10am",
+                              end_time: "1 hour")
+
+
    visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
 
    expect(page).to have_link("Create Meeting")
@@ -50,4 +56,19 @@ describe 'As a visitor' do
 
    expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings/new")
  end
+
+ it 'displays a count of the number of presentations associated with the conference' do
+   meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                   has_projector: true,
+                                   capacity: 30
+                                 )
+   meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                               number_of_participants: 10,
+                               start_time: "Monday, 10am",
+                             end_time: "1 hour")
+
+     visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
+
+     expect(page).to have_content("1 meeting")
+   end
 end
