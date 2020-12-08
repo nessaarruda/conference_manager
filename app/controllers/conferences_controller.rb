@@ -19,11 +19,7 @@ class ConferencesController < ApplicationController
   def update
     conference = Conference.find(params[:id])
     conference.update(conference_params)
-    if params[:src] == 'index'
-      redirect_to "/conferences"
-    else
-      redirect_to "/conferences/#{conference.id}"
-    end
+    redirect_to params[:previous_request]
   end
 
   def destroy

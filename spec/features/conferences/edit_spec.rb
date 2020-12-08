@@ -23,7 +23,9 @@ describe 'Edit Conference page' do
   it 'updates the attributes of the conference' do
     conference_1 = create(:conference)
 
-    visit "/conferences/#{conference_1.id}/edit"
+
+    visit "/conferences/#{conference_1.id}"
+    click_on("Update Conference")
 
     expect(page).to have_button('Update Conference', type: 'submit')
 
@@ -44,7 +46,8 @@ describe 'Edit Conference page' do
   it 'allows you to change individual attributes of the conference' do
     conference_1 = create(:conference, start_date: DateTime.parse("2021-01-19"))
 
-    visit "/conferences/#{conference_1.id}/edit"
+    visit "/conferences/#{conference_1.id}"
+    click_on("Update Conference")
 
     fill_in('start', with: "2021-01-17")
     click_on('Update Conference')
