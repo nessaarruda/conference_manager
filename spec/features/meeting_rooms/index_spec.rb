@@ -37,7 +37,7 @@ describe 'as a visitor' do
                                       capacity: 30
                                     )
       meeting_room_2 = MeetingRoom.create(name: "AOC",
-                                      has_projector: false,
+                                      has_projector: true,
                                       capacity: 20
                                     )
       visit '/meeting_rooms'
@@ -75,8 +75,37 @@ describe 'as a visitor' do
 
     fill_in("capacity", with: 25)
     click_on("Only return records with more than minimum capacity")
-    
+
     expect(page).to have_content(meeting_room_1.name)
     expect(page).not_to have_content(meeting_room_2.name)
+  end
+    it 'sorts meeting rooms by number of meetings' do
+      meeting_room_1 = MeetingRoom.create(name: "AOC",
+        has_projector: true,
+        capacity: 20
+      )
+      meeting_room_2 = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                  end_time: "1 hour")
+      meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                  number_of_participants: 15,
+                                  start_time: "Tuesday, 10am",
+                                  end_time: "1 hour")
+      visit '/meeting_rooms'
+      expect(page).to have_link("Sort by Number of Meetings")
+      click_on("Sort by Number of Meetings")
+      expect(current_path).to eq('/meeting_rooms')
+      expect(meeting_room_1.name).to appear_before(meeting_room_2.name)
+      within('#row-0') do
+        expect(page).to have_content("2 meetings")
+    end
+      within('#row-1') do
+        expect(page).to have_content("0 meetings")
+    end
   end
 end

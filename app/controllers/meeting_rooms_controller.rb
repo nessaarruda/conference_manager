@@ -1,7 +1,15 @@
 class MeetingRoomsController < ApplicationController
 
   def index
-    @meeting_rooms = MeetingRoom.where('capacity > ?', params[:capacity]|| 0).order(has_projector: :desc, created_at: :desc)
+    if params[:sort]
+      @meeting_rooms = MeetingRoom.select("meeting_rooms.*, COUNT(*) AS count")
+                                  .left_outer_joins(:meetings)
+                                  .group(:id)
+                                  .where('capacity > ?', params[:capacity]|| 0)
+                                  .order(count: :desc, has_projector: :desc, created_at: :desc)
+    else
+      @meeting_rooms = MeetingRoom.where('capacity > ?', params[:capacity]|| 0).order(has_projector: :desc, created_at: :desc)
+    end
   end
 
   def show

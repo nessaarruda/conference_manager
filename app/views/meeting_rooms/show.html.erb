@@ -1,5 +1,6 @@
 <a href="/meeting_rooms">Meeting Room Index</a>
 
+<p <%= "#{@meeting_room.meetings.count} meetings" %></p>
 <h1>Name: <%= @meeting_room.name %></h1>
 <h2>Has Projector: <%= @meeting_room.has_projector %></h2>
 <h3>Capacity: <%= @meeting_room.capacity %></h3>
