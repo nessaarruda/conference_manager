@@ -69,6 +69,6 @@ describe 'As a visitor' do
 
      visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
 
-     expect(page).to have_content("1 meeting")
+     expect(page).to have_content("1 meetings")
    end
 end
