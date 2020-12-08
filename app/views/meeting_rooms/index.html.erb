@@ -1,4 +1,8 @@
 <h1>All Meeting Rooms</h1>
+<%= form_tag '/meeting_rooms', method: :get do %>
+  <%= number_field_tag :capacity %>
+  <%= submit_tag 'Only return records with more than minimum capacity' %>
+<% end %>
 <% @meeting_rooms.each do |meeting_room|%>
 <h2>Name: <%= link_to meeting_room.name, "/meeting_rooms/#{meeting_room.id}" %> </h2>
 <h3>Capacity: <%= meeting_room.capacity %></h3>

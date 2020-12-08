@@ -24,6 +24,24 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
     t.datetime "created_at"
   end
 
+  create_table "meeting_rooms", force: :cascade do |t|
+    t.string "name"
+    t.boolean "has_projector"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.string "name"
+    t.string "schedule"
+    t.integer "number_of_participants"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "meeting_room_id"
+    t.datetime "end_time"
+  end
+
   create_table "presentations", force: :cascade do |t|
     t.string "name"
     t.string "presenter"
@@ -36,22 +54,4 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
   end
 
   add_foreign_key "presentations", "conferences"
-
-  create_table "meeting_rooms", force: :cascade do |t|
-    t.string "name"
-    t.boolean "has_projector"
-    t.integer "capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "meetings", force: :cascade do |t|
-    t.string "name"
-    t.integer "number_of_participants"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "meeting_room_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-  end
 end

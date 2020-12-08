@@ -1,7 +1,7 @@
 class MeetingRoomsController < ApplicationController
 
   def index
-    @meeting_rooms = MeetingRoom.all.order(created_at: :desc)
+    @meeting_rooms = MeetingRoom.where('capacity > ?', params[:capacity]|| 0).order(has_projector: :desc, created_at: :desc)
   end
 
   def show
