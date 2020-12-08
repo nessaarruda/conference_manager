@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post '/meeting_rooms', to:'meeting_rooms#create'
   get '/meeting_rooms/:id', to:'meeting_rooms#show'
   get '/meeting_rooms/:id/edit', to: 'meeting_rooms#edit'
+  get '/meeting_rooms/:id/meetings', to: 'meetings#index'
   patch '/meeting_rooms/:id', to: 'meeting_rooms#update'
   delete '/meeting_rooms/:id', to: 'meeting_rooms#destroy'
 

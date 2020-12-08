@@ -1,5 +1,6 @@
 <h1>New Meeting Room</h1>
 
+<p <%= "#{@meeting_room.meetings.count} meetings" %></p>
 <form action='/meeting_rooms' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
   <label for='metname'>MeetingRoom name: </label>
@@ -9,4 +10,5 @@
   <label for='capacity'>Capacity: </label>
   <input id='capacity' type='bigint' name='meeting_room[capacity]'/><br/>
   <input type='submit' value='Create Meeting Room'/>
+
 </form>
