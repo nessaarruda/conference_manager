@@ -1,7 +1,8 @@
 class MeetingRoomsController < ApplicationController
 
   def index
-    @meeting_rooms = MeetingRoom.all
+    @meeting_rooms = MeetingRoom.all.order(created_at: :desc)
+    #receive error about create_at column not existing or not working when trying to sort by created_at
   end
 
   def show

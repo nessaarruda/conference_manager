@@ -65,3 +65,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+RSpec::Matchers.define :appear_before do |later_content|
+  match do |earlier_content|
+    page.text.index(earlier_content) < page.text.index(later_content)
+  end
+end

@@ -6,7 +6,7 @@ class CreateMeetings < ActiveRecord::Migration[5.2]
       t.integer :number_of_participants
       t.time :duration
 
-      t.timestamp
+      t.timestamps
     end
   end
 end

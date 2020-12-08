@@ -29,5 +29,19 @@ describe 'as a visitor' do
 
       expect(page).to have_current_path('/meeting_rooms/new')
     end
+
+    it 'When I visit the index page sorts records datatime by most recently created and I see the created date' do
+
+      meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_room_2 = MeetingRoom.create(name: "AOC",
+                                      has_projector: false,
+                                      capacity: 20
+                                    )
+      visit '/meeting_rooms'
+      expect(meeting_room_2.name).to appear_before(meeting_room_1.name)
+    end
   end
 end

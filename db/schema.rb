@@ -19,13 +19,17 @@ ActiveRecord::Schema.define(version: 2020_12_05_003709) do
     t.string "name"
     t.boolean "has_projector"
     t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "meetings", force: :cascade do |t|
     t.string "name"
     t.integer "number_of_participants"
+    t.time "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "meeting_room_id"
-    t.datetime "end_time"
     t.datetime "start_time"
   end
 

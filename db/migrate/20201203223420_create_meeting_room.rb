@@ -5,7 +5,7 @@ class CreateMeetingRoom < ActiveRecord::Migration[5.2]
       t.boolean :has_projector
       t.integer :capacity
 
-      t.timestamp
+      t.timestamps
     end
   end
 end
