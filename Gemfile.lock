@@ -108,7 +108,10 @@ GEM
     nio4r (2.5.4)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    nyan-cat-formatter (0.12.0)
+      rspec (>= 2.99, >= 2.14.2, < 4)
     pg (1.2.3)
+    pgreset (0.1.1)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -146,6 +149,10 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.8.2)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
     rspec-core (3.10.0)
       rspec-support (~> 3.10.0)
     rspec-expectations (3.10.0)
@@ -217,11 +224,16 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.2)
   factory_bot_rails
+<<<<<<< HEAD
   faker
+=======
+>>>>>>> 7e997fb61aebb38b7373dd10bade36666bf23152
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)
+  nyan-cat-formatter
   pg (>= 0.18, < 2.0)
+  pgreset
   pry
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.4)
