@@ -31,6 +31,6 @@ class PresentationsController < ApplicationController
 
   private
   def presentation_params
-    params[:presentation].permit!
+    params[:presentation].permit(:conference_id, :name, :presenter, :category, :projector_needed)
   end
 end

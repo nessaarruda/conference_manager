@@ -8,13 +8,7 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    conference = Conference.create({
-      name: params[:conference][:name].titleize,
-      organization: params[:conference][:organization].titleize,
-      size: params[:conference][:size],
-      start_date: params[:conference][:start_date],
-      end_date: params[:conference][:end_date]
-      })
+    conference = Conference.create(conference_params)
     redirect_to '/conferences'
   end
 
@@ -24,13 +18,7 @@ class ConferencesController < ApplicationController
 
   def update
     conference = Conference.find(params[:id])
-    conference.update({
-      name: params[:conference][:name],
-      organization: params[:conference][:organization],
-      size: params[:conference][:size],
-      start_date: params[:conference][:start_date],
-      end_date: params[:conference][:end_date]
-      })
+    conference.update(conference_params)
     if params[:src] == 'index'
       redirect_to "/conferences"
     else
@@ -41,5 +29,10 @@ class ConferencesController < ApplicationController
   def destroy
     Conference.destroy(params[:id])
     redirect_to '/conferences'
+  end
+
+  private
+  def conference_params
+    params[:conference].permit(:name, :organization, :size, :start_date, :end_date)
   end
 end
