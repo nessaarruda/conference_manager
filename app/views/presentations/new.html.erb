@@ -12,7 +12,7 @@
 
 <form action='/presentations' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <input type='hidden' name='conference_id' value="<%= params[:id] %>"/>
+  <input type='hidden' name='presentation[conference_id]' value="<%= params[:id] %>"/>
   <label for='presname'>Presentation name: </label>
   <input id='presname' type='text' name='presentation[name]'/><br/>
   <label for='presenter'>Presenter: </label>

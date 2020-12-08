@@ -24,18 +24,18 @@ describe Presentation do
     end
     conference = Conference.first
 
-    presentations = Presentation.select_presentations({id: conference.id, sort: :name})
+    presentations = Presentation.select_presentations(conference.id, :name)
     expect(presentations.to_set).to eq(conference.presentations.to_set)
     expect(presentations.sort_by {|p| p.name}).to eq(presentations)
 
-    presentations = Presentation.select_presentations({id: conference.id})
+    presentations = Presentation.select_presentations(conference.id, nil)
     expect(presentations.to_set).to eq(conference.presentations.to_set)
 
-    presentations = Presentation.select_presentations({sort: :name})
+    presentations = Presentation.select_presentations(nil, :name)
     expect(presentations.to_set).to eq(Presentation.all.to_set)
     expect(presentations.sort_by {|p| p.name}).to eq(presentations)
 
-    presentations = Presentation.select_presentations({})
+    presentations = Presentation.select_presentations(nil, nil)
     expect(presentations.to_set).to eq(Presentation.all.to_set)
   end
 

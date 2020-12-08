@@ -11,14 +11,8 @@ class PresentationsController < ApplicationController
   end
 
   def create
-    conference = Conference.find(params[:conference_id])
-    conference.presentations.create({
-      name: params[:presentation][:name],
-      presenter: params[:presentation][:presenter],
-      category: params[:presentation][:category],
-      projector_needed: params[:presentation][:projector_needed],
-      })
-    redirect_to "/conferences/#{params[:conference_id]}/presentations"
+    Presentation.create(presentation_params)
+    redirect_to "/conferences/#{params[:presentation][:conference_id]}/presentations"
   end
 
   def edit
@@ -49,5 +43,10 @@ class PresentationsController < ApplicationController
     else
       redirect_to '/presentations'
     end
+  end
+
+  private
+  def presentation_params
+    params[:presentation].permit!
   end
 end
