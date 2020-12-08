@@ -1,4 +1,8 @@
 <h1>Meetings</h1>
+<%= form_tag '/meetings', method: :get do %>
+  <%= number_field_tag :number_of_participants %>
+  <%= submit_tag 'Only return records with more than minimum participants' %>
+<% end %>
 <p><%= "#{@meetings.count} meetings" %></p>
 <% @meetings.each do |meeting| %>
 

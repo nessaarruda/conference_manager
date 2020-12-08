@@ -71,4 +71,30 @@ describe 'As a visitor' do
 
      expect(page).to have_content("1 meetings")
    end
+
+   it 'shows all records above a given threshold' do
+     meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                     has_projector: true,
+                                     capacity: 30
+                                   )
+     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                 number_of_participants: 10,
+                                 start_time: "Monday, 10am",
+                                 end_time: "1 hour")
+     meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                 number_of_participants: 15,
+                                 start_time: "Tuesday, 10am",
+                                 end_time: "1 hour")
+
+     visit '/meetings'
+
+     expect(page).to have_field("number_of_participants")
+     expect(page).to have_button("Only return records with more than minimum participants")
+
+     fill_in("number_of_participants", with: 12)
+     click_on("Only return records with more than minimum participants")
+
+     expect(page).to have_content(meeting_2.name)
+     expect(page).not_to have_content(meeting_1.name)
+   end
 end
