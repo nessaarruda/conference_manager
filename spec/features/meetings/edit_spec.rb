@@ -153,7 +153,7 @@ describe 'Edit Meeting page' do
       expect(page).to have_current_path('/meetings')
     end
 
-    xit 'navigates to the meetings page' do
+    it 'navigates to the meetings page' do
       meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                       has_projector: true,
                                       capacity: 30
@@ -166,9 +166,9 @@ describe 'Edit Meeting page' do
 
       visit "/meetings/#{meeting.id}/edit"
 
-      click_on("Meetings")
+      click_on("Presentations")
 
-      expect(page).to have_current_path('/meetings')
+      expect(page).to have_current_path('/presentations')
     end
   end
 end

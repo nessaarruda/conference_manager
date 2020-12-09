@@ -167,5 +167,76 @@ describe 'As a visitor' do
 
      expect(page).to have_current_path('/meetings')
      expect(page).not_to have_content(meeting_2.name)
-   end
-end
+     end
+
+    describe 'site navigation' do
+      it 'has a navigation bar with links to other index pages' do
+        visit '/meetings'
+
+        expect(page).to have_link("Conference Manager Home")
+        expect(page).to have_link("Conferences")
+        expect(page).to have_link("Meeting Rooms")
+        expect(page).to have_link("Presentations")
+        expect(page).to have_link("Meetings")
+      end
+
+      it 'navigates to the welcome page' do
+        visit '/meetings'
+
+        click_on("Conference Manager Home")
+
+        expect(page).to have_current_path('/')
+      end
+
+      it 'navigates to the meeting_rooms page' do
+        visit '/meetings'
+
+        click_on("Conferences")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the meeting rooms page' do
+        visit '/meetings'
+
+        click_on("Meeting Rooms")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the meetings page' do
+        visit '/meetings'
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'navigates to the meetings page' do
+        visit '/meetings'
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'has links to navigate to meeting_rooms' do
+        meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                        has_projector: true,
+                                        capacity: 30
+                                      )
+        meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                    number_of_participants: 10,
+                                    start_time: "Monday, 10am",
+                                  end_time: "1 hour")
+
+        visit '/meetings'
+
+        expect(page).to have_link(meeting_room.name)
+
+        click_on(meeting_room.name)
+
+        expect(page).to have_current_path("/meeting_rooms/#{meeting.id}")
+      end
+    end
+  end

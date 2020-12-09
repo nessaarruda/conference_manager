@@ -40,5 +40,100 @@ describe 'as a visitor' do
       expect(page).to have_current_path("/meeting_rooms")
       expect(page).not_to have_content(meeting_room_1.name)
     end
+
+    describe 'site navigation' do
+      it 'has a navigation bar with links to other index pages' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        expect(page).to have_link("Conference Manager Home")
+        expect(page).to have_link("Conferences")
+        expect(page).to have_link("Meeting Rooms")
+        expect(page).to have_link("Presentations")
+        expect(page).to have_link("Meetings")
+      end
+
+      it 'navigates to the welcome page' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        click_on("Conference Manager Home")
+
+        expect(page).to have_current_path('/')
+      end
+
+      it 'navigates to the meeting_rooms page' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        click_on("Meeting Rooms")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the meeting rooms page' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        click_on("Meeting Rooms")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the Meetings page' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'navigates to the meetings page' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'has a link to view its Meetings' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        expect(page).to have_link("View Meetings")
+
+        click_on("View Meetings")
+
+        expect(page).to have_current_path("/meeting_rooms/#{meeting_room.id}/meetings")
+      end
+
+      it 'has a link to itself' do
+        meeting_room_1 = MeetingRoom.create!(name: "Oprah",
+              has_projector: true,
+              capacity: 30)
+        visit "/meeting_rooms/#{meeting_room.id}"
+
+        expect(page).to have_link(meeting_room.name)
+
+        click_on(meeting_room.name)
+
+        expect(page).to have_current_path("/meeting_rooms/#{meeting_room.id}")
+      end
+    end
   end
-end
