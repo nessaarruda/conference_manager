@@ -8,15 +8,14 @@
 
 <h1>Update Meeting Room </h1>
 
-<form action='/meeting_rooms/<%= @meeting_room.id %>' method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <input type='hidden' name='previous_request' value="<%= request.referrer %>">
-  <input type='hidden' name="_method" value="PATCH" />
-  <label for='metname'>Meeting Room name: </label>
-  <input id='metname' type='text' name='meeting_room[name]' value='<%= @meeting_room.name %>'/><br/>
-  <label for='capacity'>Capacity: </label>
-  <input id='capacity' type='bigint' name='meeting_room[capacity]' value='<%= @meeting_room.capacity %>'/><br/>
-  <label for='has_projector'>Has projector: </label>
-  <input id='has_projector' type='boolean' name='meeting_room[has_projector]' value='<%= @meeting_room.has_projector %>'/><br/>
-  <input type='submit' value='Update Meeting Room'/>
-</form>
+<%= form_tag "/meeting_rooms/#{@meeting_room.id}", method: :patch do %>
+  <%= hidden_field_tag :previous_request, request.referrer %>
+  <%= label_tag "Meeting room name" %>
+  <%= text_field_tag :name, @meeting_room.name %><br>
+  <%= label_tag :capacity %>
+  <%= number_field_tag :capacity, @meeting_room.capacity %><br>
+  <%= label_tag :has_projector %>
+  <%= hidden_field_tag :has_projector, false %>
+  <%= check_box_tag :has_projector, true, @meeting_room.has_projector %><br>
+  <%= submit_tag "Update Meeting Room" %>
+<% end %>

@@ -30,12 +30,8 @@ class MeetingRoomsController < ApplicationController
   end
 
    def update
-     meeting_room = MeetingRoom.find(params[:id])
-     meeting_room.update({
-       name: params[:meeting_room][:name],
-       has_projector: params[:meeting_room][:has_projector],
-       capacity: params[:meeting_room][:capacity]
-       })
+     MeetingRoom.find(params[:id]).update(meeting_room_params)
+
      redirect_to params[:previous_request]
    end
 
