@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Conference.destroy_all
+
+FactoryBot.create_list(:conference, rand(5..25))
+
+Conference.all.each do |conference|
+  rand(5..25).times do
+    FactoryBot.create(:presentation, conference: conference)
+  end
+end

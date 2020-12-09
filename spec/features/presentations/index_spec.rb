@@ -3,26 +3,20 @@ require 'rails_helper'
 describe 'Presentations Index' do
   describe 'content' do
     it 'can show each presentation in the system including its attributes' do
-      presentation_1 = create(:presentation)
-      presentation_2 = create(:presentation)
-      presentation_3 = create(:presentation)
+      presentation = create(:presentation)
 
       visit "/presentations"
 
       expect(page).to have_content("Presentation List")
       expect(page).to have_table('presentations')
-      within('#row-0') do
-        expect(page).to have_content(presentation_3.name)
-        expect(page).to have_content(presentation_3.presenter)
-        expect(page).to have_content(presentation_3.category)
-        expect(page).to have_content(presentation_3.projector_needed)
-        created = presentation_3.created_at.strftime('%m-%d-%Y %H:%M')
-        expect(page).to have_content(created)
-        updated = presentation_3.updated_at.strftime('%m-%d-%Y %H:%M')
-        expect(page).to have_content(updated)
-      end
-      within('#row-1') { expect(page).to have_content(presentation_2.name) }
-      within('#row-2') { expect(page).to have_content(presentation_1.name) }
+      expect(page).to have_content(presentation.name)
+      expect(page).to have_content(presentation.presenter)
+      expect(page).to have_content(presentation.category)
+      expect(page).to have_content(presentation.projector_needed)
+      created = presentation.created_at.strftime('%m-%d-%Y %H:%M')
+      expect(page).to have_content(created)
+      updated = presentation.updated_at.strftime('%m-%d-%Y %H:%M')
+      expect(page).to have_content(updated)
     end
 
     it 'can show the presentations associated with a given conference' do
@@ -41,27 +35,22 @@ describe 'Presentations Index' do
     end
 
     it 'displays records in order by recency of creation' do
-      presentation_1 = create(:presentation, created_at: DateTime.parse("20201101"))
-      presentation_2 = create(:presentation, created_at: DateTime.parse("20201201"))
-      presentation_3 = create(:presentation, created_at: DateTime.parse("20201203"))
-      presentation_4 = create(:presentation, created_at: DateTime.parse("20201202"))
+      presentation_1 = create(:presentation, projector_needed: true)
+      presentation_2 = create(:presentation, projector_needed: true)
 
       visit "/presentations"
 
       expect(presentation_2.name).to appear_before(presentation_1.name)
-      expect(presentation_4.name).to appear_before(presentation_2.name)
-      expect(presentation_3.name).to appear_before(presentation_4.name)
 
-      presentation_5 = create(:presentation)
+      presentation_3 = create(:presentation, projector_needed: true)
 
       refresh
 
-      expect(presentation_5.name).to appear_before(presentation_3.name)
+      expect(presentation_3.name).to appear_before(presentation_1.name)
     end
 
     it 'displays the date each presentation was created' do
       presentation_1 = create(:presentation, created_at: DateTime.parse("20201101"))
-      presentation_2 = create(:presentation, created_at: DateTime.parse("20201201"))
 
       visit "/presentations"
 
@@ -107,9 +96,9 @@ describe 'Presentations Index' do
 
       visit "/conferences/#{conference.id}/presentations"
 
-      expect(page).to have_link("Display in Alphabetical Order by Name")
+      expect(page).to have_link("Sort Alphabetically")
 
-      click_link("Display in Alphabetical Order by Name")
+      click_link("Sort Alphabetically")
 
       expect(current_path).to eq("/conferences/#{conference.id}/presentations")
       sorted_names = [presentation_1.name, presentation_2.name, presentation_3.name].sort
@@ -124,9 +113,9 @@ describe 'Presentations Index' do
 
       visit "/presentations"
 
-      expect(page).to have_link("Display in Alphabetical Order by Name")
+      expect(page).to have_link("Sort Alphabetically")
 
-      click_link("Display in Alphabetical Order by Name")
+      click_link("Sort Alphabetically")
 
       expect(current_path).to eq("/presentations")
       sorted_names = [presentation_1.name, presentation_2.name, presentation_3.name].sort

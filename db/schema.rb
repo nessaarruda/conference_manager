@@ -35,11 +35,11 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
     t.datetime "start_time"
     t.datetime "end_time"
   end
-  
+
   create_table "conferences", force: :cascade do |t|
     t.string "name"
     t.string "organization"
-    t.integer "size"
+    t.integer "attendees"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"

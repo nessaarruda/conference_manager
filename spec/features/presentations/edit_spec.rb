@@ -21,7 +21,8 @@ describe 'Edit Presentation page' do
   it 'updates the attributes of the presentation' do
     presentation = create(:presentation)
 
-    visit "/presentations/#{presentation.id}/edit"
+    visit "/presentations/#{presentation.id}"
+    click_on("Update Presentation")
 
     expect(page).to have_button('Update Presentation', type: 'submit')
 
@@ -38,7 +39,8 @@ describe 'Edit Presentation page' do
   it 'allows you to individual attributes of the presentation' do
     presentation = create(:presentation, presenter: "Barack Obama")
 
-    visit "/presentations/#{presentation.id}/edit"
+    visit "/presentations/#{presentation.id}"
+    click_on("Update Presentation")
 
     fill_in('presenter', with: "Michelle Obama")
     click_on('Update Presentation')
