@@ -6,6 +6,7 @@ describe 'As a User' do
     visit '/'
 
     expect(page).to have_content('Welcome to Conference Manager')
+    expect(page).to have_content('Conferences')
     end
-  end 
+  end
 end

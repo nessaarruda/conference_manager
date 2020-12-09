@@ -1,0 +1,19 @@
+<h1>Update <%= @conference.name %></h1>
+
+<form action='/conferences/<%= @conference.id %>' method='post'>
+  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <input type='hidden' name="_method" value="PATCH" />
+  <label for='confname'>Conference name: </label>
+  <input id='confname' type='text' name='conference[name]' value='<%= @conference.name %>'/><br/>
+  <label for='org'>Organization: </label>
+  <input id='org' type='text' name='conference[organization]' value='<%= @conference.organization %>'/><br/>
+  <label for='size'>Expected attendees: </label>
+  <input id='size' type='bigint' name='conference[size]' value='<%= @conference.size %>'/><br/>
+  <div>
+    <label for='start'>Dates: </label>
+    <input id='start' type='date' name='conference[start_date]' value=<%= @conference.start_date %>/>
+    <label for='end'> to </label>
+    <input id='end' type='date' name='conference[end_date]' value=<%= @conference.end_date %>/><br/>
+  </div>
+  <input type='submit' value='Update Conference'/>
+</form>
