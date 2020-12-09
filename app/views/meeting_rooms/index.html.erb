@@ -1,1 +1,9 @@
-<h1>Meeting Rooms</h1>
+<h1>All Meeting Rooms</h1>
+<% @meeting_rooms.each do |meeting_room|%>
+<h2>Name: <%= link_to meeting_room.name, "/meeting_rooms/#{meeting_room.id}" %> </h2>
+<h3>Capacity: <%= meeting_room.capacity %></h3>
+<p>Has projector: <%= meeting_room.has_projector %></p>
+<br>
+<a href='/meeting_rooms/<% meeting_room.id %>/edit'>Update Meeting Room</a>
+<% end %>
+<%= link_to "New Meeting Room", "/meeting_rooms/new" %>

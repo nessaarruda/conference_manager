@@ -1,1 +1,8 @@
-<%= @meeting %>
+<a href="/meeting_rooms">Meeting Room Index</a>
+
+<h1>Name: <%= @meeting_room.name %></h1>
+<h2>Has Projector: <%= @meeting_room.has_projector %></h2>
+<h3>Capacity: <%= @meeting_room.capacity %></h3>
+
+<%= button_to 'Delete Meeting Room', "/meeting_rooms/#{@meeting_room.id}", method: :delete %>
+<a href="/meeting_rooms/<%= @meeting_room.id %>/edit">Update Meeting Room</a>
