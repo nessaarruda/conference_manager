@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2020_12_08_004904) do
-
+ActiveRecord::Schema.define(version: 2020_12_09_031902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "conferences", force: :cascade do |t|
+    t.string "name"
+    t.string "organization"
+    t.integer "attendees"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at"
+    t.integer "size"
+  end
 
   create_table "meeting_rooms", force: :cascade do |t|
     t.string "name"
@@ -31,18 +38,12 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
     t.integer "number_of_participants"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "meeting_room_id"
-    t.datetime "start_time"
     t.datetime "end_time"
-  end
-
-  create_table "conferences", force: :cascade do |t|
-    t.string "name"
-    t.string "organization"
-    t.integer "attendees"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at"
+    t.datetime "start_time"
+    t.bigint "meeting_rooms_id"
+    t.bigint "meeting_room_id"
+    t.index ["meeting_room_id"], name: "index_meetings_on_meeting_room_id"
+    t.index ["meeting_rooms_id"], name: "index_meetings_on_meeting_rooms_id"
   end
 
   create_table "presentations", force: :cascade do |t|
@@ -56,5 +57,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
     t.index ["conference_id"], name: "index_presentations_on_conference_id"
   end
 
+  add_foreign_key "meetings", "meeting_rooms"
+  add_foreign_key "meetings", "meeting_rooms", column: "meeting_rooms_id"
   add_foreign_key "presentations", "conferences"
 end
