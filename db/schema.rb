@@ -11,7 +11,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
-ActiveRecord::Schema.define(version: 2020_12_03_223420) do
+ActiveRecord::Schema.define(version: 2020_12_05_034542) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +30,19 @@ ActiveRecord::Schema.define(version: 2020_12_03_223420) do
     t.integer "size"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.datetime "created_at"
   end
 
+  create_table "presentations", force: :cascade do |t|
+    t.string "name"
+    t.string "presenter"
+    t.string "category"
+    t.boolean "projector_needed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.bigint "conference_id"
+    t.index ["conference_id"], name: "index_presentations_on_conference_id"
+  end
+
+  add_foreign_key "presentations", "conferences"
 end

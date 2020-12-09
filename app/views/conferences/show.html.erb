@@ -1,7 +1,20 @@
-<h1><%= @conference.name %></h1>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
 
+<h1>
+  <a href="/conferences/<%= @conference.id %>"><%= @conference.name %></a>
+</h1>
+<a href="/conferences/<%= @conference.id %>/presentations">View Presentations</a>
 <h2><%= @conference.organization %></h2>
-<p><%= "#{@conference.start} to #{@conference.end}" %></p>
+<p><%= "#{@conference.start_date.strftime("%b %d, %Y")}
+  to #{@conference.end_date.strftime("%b %d, %Y")}" %></p>
 <p>Expected Attendance: <%= @conference.size %></p>
 <br>
 <a href='/conferences/<%= @conference.id %>/edit'>Update Conference</a>

@@ -1,6 +1,11 @@
 class ConferencesController < ApplicationController
   def index
-    @conferences = Conference.all
+    if params["sort"]
+      @conferences = Conference.select("conferences.*, count(*) AS count").joins(:presentations).group(:id).order(count: :desc)
+       # "SELECT conferences.*, count(*) AS count FROM conferences INNER JOIN presentations ON conferences.id=presentations.conference_id GROUP BY conferences.id ORDER BY count DESC;"
+    else
+      @conferences = Conference.where('size >= ?', (params[:attendees] || 0)).order(created_at: :desc)
+    end
   end
 
   def show
@@ -9,8 +14,8 @@ class ConferencesController < ApplicationController
 
   def create
     conference = Conference.create({
-      name: params[:conference][:name],
-      organization: params[:conference][:organization],
+      name: params[:conference][:name].titleize,
+      organization: params[:conference][:organization].titleize,
       size: params[:conference][:size],
       start_date: params[:conference][:start_date],
       end_date: params[:conference][:end_date]
@@ -31,7 +36,11 @@ class ConferencesController < ApplicationController
       start_date: params[:conference][:start_date],
       end_date: params[:conference][:end_date]
       })
-    redirect_to "/conferences/#{conference.id}"
+    if params[:src] == 'index'
+      redirect_to "/conferences"
+    else
+      redirect_to "/conferences/#{conference.id}"
+    end
   end
 
   def destroy

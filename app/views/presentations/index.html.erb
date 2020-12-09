@@ -1,0 +1,65 @@
+<head>
+  <style>
+    table, th, td {border: 1px solid black;}
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Conference Manager Home</a>
+      <a href='/conferences'>Conferences</a>
+      <a href='/presentations'>Presentations</a>
+      <a href='/meeting_rooms'>Meeting Rooms</a>
+      <a href='/meetings'>Meetings</a>
+    </nav>
+  </header>
+
+  <h1>Presentation List</h1>
+
+  <p><%= "#{@presentations.count} presentations" %></p>
+
+  <% if params[:id] %>
+    <a href='/conferences/<%= params[:id] %>/presentations?sort=true'>Display in Alphabetical Order by Name</a>
+  <% else %>
+    <a href='/presentations?sort=true'>Display in Alphabetical Order by Name</a>
+  <% end%>
+
+  <table id='presentations'>
+    <tr>
+      <th>Name</th>
+      <th>Presenter</th>
+      <th>Conference</th>
+      <th>Category</th>
+      <th>projector needed</th>
+      <th>created</th>
+      <th>updated</th>
+    </tr>
+    <% @presentations.each_with_index do |presentation, index| %>
+      <tr id='<%= "row-#{index}" %>'>
+        <td><a href="/presentations/<%= presentation.id %>"><%= presentation.name %></td>
+        <td><%= presentation.presenter %></td>
+        <td><a href="conferences/<%= presentation.conference.id %>"><%= presentation.conference.name %></td>
+        <td><%= presentation.category %></td>
+        <td><%= presentation.projector_needed %></td>
+        <td style='font-size:80%'><%= presentation.created_at.strftime('%m-%d-%Y %H:%M') %></td>
+        <td style='font-size:80%'><%= presentation.updated_at.strftime('%m-%d-%Y %H:%M') %></td>
+        <td><a href="/presentations/<%= presentation.id %>/edit?src=<%= params[:id] || "index" %>">Update Presentation</a></td>
+        <td>
+          <form action='/presentations/<%= presentation.id %>' method="post">
+            <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+            <input type='hidden' name='_method' value="DELETE">
+            <input type='hidden' name='src' value='<%= params[:id] %>'>
+            <input type='submit' value='Delete Presentation'/>
+          </form>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <% if params[:id] %>
+    <form action="/conferences/<%= params[:id] %>/presentations/new" method="get">
+      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+      <input type='hidden' name='conference_id' value="<%= params[:id] %>"/>
+      <input type='submit' value='Create Presentation'/>
+    </form>
+  <% end %>
+</body>
