@@ -7,11 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Conference.destroy_all
+MeetingRoom.destroy_all
 
 FactoryBot.create_list(:conference, rand(5..25))
+FactoryBot.create_list(:meeting_room, rand(5..25))
 
 Conference.all.each do |conference|
   rand(5..25).times do
     FactoryBot.create(:presentation, conference: conference)
+  end
+end 
+MeetingRoom.all.each do |meeting_room|
+  rand(5..25).times do
+    FactoryBot.create(:meeting, meeting_room: meeting_room)
   end
 end
