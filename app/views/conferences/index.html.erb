@@ -23,7 +23,7 @@
     <h3><%= "#{format_date(conference.start_date)} to #{format_date(conference.end_date)}" %></h3>
     <p><%= "#{conference.presentations.count} presentations" %></p>
     <p><%= "added: #{format_timestamp(conference.created_at)}" %></p>
-    <h4><%= link_to "Update Conference", "/conferences/#{conference.id}/edit?src=index" %></h4>
+    <h4><%= link_to "Update Conference", "/conferences/#{conference.id}/edit" %></h4>
     <h4><%= button_to "Delete Conference", "/conferences/#{conference.id}", method: :delete %>
   </div>
 <% end %>

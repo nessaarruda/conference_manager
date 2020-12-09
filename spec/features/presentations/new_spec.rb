@@ -8,14 +8,14 @@ describe 'New Presentation page' do
 
     expect(page).to have_content("New Presentation")
     expect(page).to have_selector('form')
-    expect(page).to have_text('Presentation name:')
-    expect(page).to have_field('presname', type: 'text')
-    expect(page).to have_text('Presenter:')
-    expect(page).to have_field('presenter', type: 'text')
-    expect(page).to have_text('Category:')
-    expect(page).to have_select('category')
-    expect(page).to have_text('Do you need a projector?')
-    expect(page).to have_field('projector', type: 'checkbox')
+    expect(page).to have_text('Presentation name')
+    expect(page).to have_field(:name)
+    expect(page).to have_text('Presenter')
+    expect(page).to have_field(:presenter)
+    expect(page).to have_text('Category')
+    expect(page).to have_select(:category)
+    expect(page).to have_text('Projector needed')
+    expect(page).to have_field(:projector_needed)
   end
 
   it 'has a button to Create Presentation' do
@@ -31,10 +31,10 @@ describe 'New Presentation page' do
 
     visit "/conferences/#{conference.id}/presentations/new"
 
-    fill_in('presname', with: "Keynote Address")
-    fill_in('presenter', with: "Yukihiro Matsumoto")
-    select('keynote', from: "category")
-    check('projector')
+    fill_in(:name, with: "Keynote Address")
+    fill_in(:presenter, with: "Yukihiro Matsumoto")
+    select('keynote', from: :category)
+    check(:projector_needed)
     click_on("Create Presentation")
 
     expect(current_path).to eq("/conferences/#{conference.id}/presentations")
@@ -46,9 +46,9 @@ describe 'New Presentation page' do
 
     visit "/conferences/#{conference.id}/presentations/new"
 
-    fill_in('presname', with: "Keynote Address")
-    fill_in('presenter', with: "Yukihiro Matsumoto")
-    select('keynote', from: "category")
+    fill_in(:name, with: "Keynote Address")
+    fill_in(:presenter, with: "Yukihiro Matsumoto")
+    select('keynote', from: :category)
     click_on("Create Presentation")
 
     expect(page).to have_content("false")

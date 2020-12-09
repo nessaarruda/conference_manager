@@ -1,35 +1,23 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
-<h1>Update <%= @presentation.name %></h1>
-<form action='/presentations/<%= @presentation.id %>' method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <input type='hidden' name='_method' value="PATCH"/>
-  <input type='hidden' name="previous_request" value='<%= request.referrer %>'>
-  <input type='hidden' name='presentation[conference_id]' value='<%= @presentation.conference_id %>'/>
-  <label for='presname'>Presentation name: </label>
-  <input id='presname' type='text' name='presentation[name]' value='<%= @presentation.name %>'/>
-  <br/>
-  <label for='presenter'>Presenter: </label>
-  <input id='presenter' type='text' name='presentation[presenter]' value='<%= @presentation.presenter %>'/>
-  <br/>
-  <label for='category'>Category: </label>
-  <select id='category' name='presentation[category]'>
-    <option value='keynote'>keynote</option>
-    <option value='lecture'>lecture</option>
-    <option value='workshop'>workshop</option>
-    <option value='panel'>panel</option>
-  </select><br/>
-  <input type='hidden' name='presentation[projector_needed]' value='false'>
-  <label for='projector'>Do you need a projector?</label>
-  <input id='projector' type='checkbox' name='presentation[projector_needed]'/><br/>
-  <input type='hidden' name='src' value='<%= params[:src] %>'>
-  <input type='submit' value='Update Presentation'/>
-</form>
+<h1><small>Update</small> <%= @presentation.name %></h1>
+
+<%= form_tag "/presentations/#{@presentation.id}", method: :patch do %>
+  <%= hidden_field_tag :previous_request, request.referrer %>
+  <%= label_tag "Presentation Name" %>
+  <%= text_field_tag :name, @presentation.name %><br>
+  <%= label_tag :presenter %>
+  <%= text_field_tag :presenter, @presentation.presenter %><br>
+  <%= label_tag :category %>
+  <%= select_tag :category, options_for_select(["keynote", "lecture", "workshop", "panel"], @presentation.category) %><br>
+  <%= label_tag :projector_needed %>
+  <%= hidden_field_tag :projector_needed, false %>
+  <%= check_box_tag :projector_needed, true, @presentation.projector_needed %><br>
+  <%= submit_tag "Update Presentation" %>
+<% end %>

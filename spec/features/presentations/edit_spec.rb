@@ -8,14 +8,14 @@ describe 'Edit Presentation page' do
 
     expect(page).to have_content("Update #{presentation.name}")
     expect(page).to have_selector('form')
-    expect(page).to have_text('Presentation name:')
-    expect(page).to have_field('presname', type: 'text')
-    expect(page).to have_text('Presenter:')
-    expect(page).to have_field('presenter', type: 'text')
-    expect(page).to have_text('Category:')
-    expect(page).to have_select('category')
-    expect(page).to have_text('Do you need a projector?')
-    expect(page).to have_field('projector', type: 'checkbox')
+    expect(page).to have_text('Presentation name')
+    expect(page).to have_field(:name)
+    expect(page).to have_text('Presenter')
+    expect(page).to have_field(:presenter)
+    expect(page).to have_text('Category')
+    expect(page).to have_select(:category)
+    expect(page).to have_text('Projector needed')
+    expect(page).to have_field(:projector_needed)
   end
 
   it 'updates the attributes of the presentation' do
@@ -26,9 +26,9 @@ describe 'Edit Presentation page' do
 
     expect(page).to have_button('Update Presentation', type: 'submit')
 
-    fill_in('presname', with: 'The Future of Ruby')
-    fill_in('presenter', with: 'Jeff Casimir')
-    select('lecture', from: "category")
+    fill_in(:name, with: 'The Future of Ruby')
+    fill_in(:presenter, with: 'Jeff Casimir')
+    select('lecture', from: :category)
     click_on('Update Presentation')
 
     expect(page).to have_current_path("/presentations/#{presentation.id}")
@@ -42,7 +42,7 @@ describe 'Edit Presentation page' do
     visit "/presentations/#{presentation.id}"
     click_on("Update Presentation")
 
-    fill_in('presenter', with: "Michelle Obama")
+    fill_in(:presenter, with: "Michelle Obama")
     click_on('Update Presentation')
 
     expect(page).to have_content("Michelle Obama")

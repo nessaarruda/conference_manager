@@ -6,7 +6,7 @@
   <%= link_to "Meetings", "/meetings" %>
 </nav>
 
-<h1>Update <%= @conference.name %></h1>
+<h1><small>Update</small> <%= @conference.name %></h1>
 
 <%= form_tag "/conferences/#{@conference.id}", method: :patch do %>
   <%= hidden_field_tag :previous_request, request.referrer %>

@@ -17,7 +17,7 @@ class ConferencesController < ApplicationController
   end
 
   def update
-    conference = Conference.find(params[:id]).update(conference_params)
+    Conference.find(params[:id]).update(conference_params)
     redirect_to params[:previous_request]
   end
 

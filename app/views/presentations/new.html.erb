@@ -1,16 +1,15 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
 <h1>New Presentation</h1>
 
 <%= form_tag "/conferences/#{params[:id]}/presentations" do %>
+  <%= hidden_field_tag :conference_id, params[:id] %>
   <%= label_tag "Presentation Name" %>
   <%= text_field_tag :name %><br>
   <%= label_tag :presenter %>
@@ -18,10 +17,7 @@
   <%= label_tag :category %>
   <%= select_tag :category, options_for_select(["keynote", "lecture", "workshop", "panel"], "workshop") %><br>
   <%= label_tag :projector_needed %>
-  <%= check_box_tag :projector_needed %>
+  <%= hidden_field_tag :projector_needed, false %>
+  <%= check_box_tag :projector_needed, true %><br>
+  <%= submit_tag "Create Presentation" %>
 <% end %>
-
-<form action="/conferences/<%= "#{params[:id]}" %>/presentations" method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <input type='submit' value='Create Presentation'/>
-</form>

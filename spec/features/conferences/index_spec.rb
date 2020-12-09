@@ -130,7 +130,7 @@ describe 'Conferences Index' do
 
       within('#row-0') { click_on("Update Conference") }
 
-      expect(page).to have_current_path("/conferences/#{conference_4.id}/edit?src=index")
+      expect(page).to have_current_path("/conferences/#{conference_4.id}/edit")
 
       click_on("Update Conference")
 
