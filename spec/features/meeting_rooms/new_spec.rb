@@ -79,3 +79,4 @@ describe 'as a visitor' do
       end
     end
   end
+end

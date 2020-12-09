@@ -42,7 +42,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       expect(page).to have_link("Conference Manager Home")
       expect(page).to have_link("Conferences")
@@ -57,7 +57,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       click_on("Conference Manager Home")
 
@@ -70,7 +70,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       click_on("Meeting Rooms")
 
@@ -83,7 +83,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       click_on("Meeting Rooms")
 
@@ -96,7 +96,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       click_on("Meetings")
 
@@ -109,7 +109,7 @@ describe 'edit meeting_rooms page' do
         capacity: 30
       )
 
-      visit "/meeting_rooms/#{meeting_room.id}/edit"
+      visit "/meeting_rooms/#{meeting_room_1.id}/edit"
 
       click_on("Meetings")
 

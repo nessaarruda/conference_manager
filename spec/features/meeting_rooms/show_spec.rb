@@ -59,7 +59,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         click_on("Conference Manager Home")
 
@@ -70,7 +70,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         click_on("Meeting Rooms")
 
@@ -81,7 +81,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         click_on("Meeting Rooms")
 
@@ -92,7 +92,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         click_on("Meetings")
 
@@ -103,7 +103,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         click_on("Meetings")
 
@@ -114,7 +114,7 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         expect(page).to have_link("View Meetings")
 
@@ -127,13 +127,14 @@ describe 'as a visitor' do
         meeting_room_1 = MeetingRoom.create!(name: "Oprah",
               has_projector: true,
               capacity: 30)
-        visit "/meeting_rooms/#{meeting_room.id}"
+        visit "/meeting_rooms/#{meeting_room_1.id}"
 
         expect(page).to have_link(meeting_room.name)
 
         click_on(meeting_room.name)
 
-        expect(page).to have_current_path("/meeting_rooms/#{meeting_room.id}")
+        expect(page).to have_current_path("/meeting_rooms/#{meeting_room_1.id}")
       end
     end
   end
+end 

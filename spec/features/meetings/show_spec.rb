@@ -149,7 +149,7 @@ RSpec.describe 'show meeting page' do
 
       visit "/meetings/#{meeting.id}"
 
-      expect(page).to have_link(meeting.name)
+      expect(page).to have_link(meeting_1.name)
 
       click_on(meeting.name)
 
