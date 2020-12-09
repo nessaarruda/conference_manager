@@ -57,7 +57,7 @@ describe 'As a visitor' do
    expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings/new")
  end
 
- it 'displays a count of the number of presentations associated with the conference' do
+ it 'displays a count of the number of meetings associated with the conference' do
    meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                    has_projector: true,
                                    capacity: 30
@@ -116,5 +116,56 @@ describe 'As a visitor' do
       click_on("Sort Meetings Alphabetically")
       expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings")
       expect(meeting_1.name).to appear_before(meeting_2.name)
+   end
+
+   it 'has links to the edit page for each meeting' do
+     meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                     has_projector: true,
+                                     capacity: 30
+                                   )
+     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                 number_of_participants: 10,
+                                 start_time: "Monday, 10am",
+                                 end_time: "1 hour")
+     meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                 number_of_participants: 15,
+                                 start_time: "Tuesday, 10am",
+                                 end_time: "1 hour")
+     visit '/meetings'
+
+     within('#row-0') { expect(page).to have_link("Update Meeting") }
+     within('#row-1') { expect(page).to have_link("Update Meeting") }
+
+     within('#row-0') { click_on("Update Meeting") }
+
+     expect(page).to have_current_path("/meetings/#{meeting_2.id}/edit?src=index")
+
+     click_on("Update Meeting")
+
+     expect(page).to have_current_path("/meetings")
+   end
+
+   it 'has links to delete each presentation' do
+     meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                     has_projector: true,
+                                     capacity: 30
+                                   )
+     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                 number_of_participants: 10,
+                                 start_time: "Monday, 10am",
+                                 end_time: "1 hour")
+     meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                 number_of_participants: 15,
+                                 start_time: "Tuesday, 10am",
+                                 end_time: "1 hour")
+     visit '/meetings'
+
+     within('#row-0') { expect(page).to have_button("Delete Meeting") }
+     within('#row-1') { expect(page).to have_button("Delete Meeting") }
+
+     within('#row-0') { click_on("Delete Meeting") }
+
+     expect(page).to have_current_path('/meetings')
+     expect(page).not_to have_content(meeting_2.name)
    end
 end

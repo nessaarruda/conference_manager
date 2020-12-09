@@ -44,7 +44,6 @@ describe 'as a visitor' do
       expect(meeting_room_2.name).to appear_before(meeting_room_1.name)
     end
   end
-
   it 'Shows records that have a true value before records that have false' do
     meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                     has_projector: true,
@@ -107,5 +106,117 @@ describe 'as a visitor' do
       within('#row-1') do
         expect(page).to have_content("0 meetings")
     end
-  end
-end
+
+    it 'has a link to the edit page for each meeting room' do
+      meeting_room_1 = MeetingRoom.create(name: "AOC",
+        has_projector: true,
+        capacity: 20
+      )
+      meeting_room_2 = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+
+      visit '/meeting_rooms'
+
+      within('#row-0') { expect(page).to have_link("Update Meeting Room") }
+      within('#row-1') { expect(page).to have_link("Update Meeting Room") }
+
+      within('#row-0') { click_on("Update Meeting Room") }
+
+      expect(page).to have_current_path("/meeting_rooms/#{meeting_room_2.id}/edit?src=index")
+
+      click_on("Update Meeting Room")
+
+      expect(page).to have_current_path("/meeting_rooms")
+    end
+
+    it 'has a link to delete each meeting room' do
+      meeting_room_1 = MeetingRoom.create(name: "AOC",
+        has_projector: true,
+        capacity: 20
+      )
+      meeting_room_2 = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+
+      visit '/meeting_rooms'
+
+      within('#row-0') { expect(page).to have_button("Delete Meeting Room") }
+      within('#row-1') { expect(page).to have_button("Delete Meeting Room") }
+
+
+      within('#row-0') { click_on("Delete Meeting Room") }
+
+      expect(page).to have_current_path('/meeting_rooms')
+      expect(page).not_to have_content(meeting_room_2.name)
+    end
+
+      describe 'site navigation' do
+        it 'has a navigation bar with links to other index pages' do
+          visit '/meeting_rooms'
+
+          expect(page).to have_link("Conference Manager Home")
+          expect(page).to have_link("Conferences")
+          expect(page).to have_link("Meeting Rooms")
+          expect(page).to have_link("Presentations")
+          expect(page).to have_link("Meetings")
+        end
+
+        it 'navigates to the welcome page' do
+          visit '/meeting_rooms'
+
+          click_on("Conference Manager Home")
+
+          expect(page).to have_current_path('/')
+        end
+
+        it 'navigates to the meeting_rooms page' do
+          visit '/meeting_rooms'
+
+          click_on("Meeting Rooms")
+
+          expect(page).to have_current_path('/meeting_rooms')
+        end
+
+        it 'navigates to the meeting rooms page' do
+          visit '/meeting_rooms'
+
+          click_on("Meeting Rooms")
+
+          expect(page).to have_current_path('/meeting_rooms')
+        end
+
+        it 'navigates to the meetings page' do
+          visit '/meeting_rooms'
+
+          click_on("Meetings")
+
+          expect(page).to have_current_path('/meetings')
+        end
+
+        it 'navigates to the meetings page' do
+          visit '/meeting_rooms'
+
+          click_on("Meetings")
+
+          expect(page).to have_current_path('/meetings')
+        end
+
+        it 'has a link to view all meetings' do
+          visit '/meeting_rooms'
+
+          expect(page).to have_link("View All Meetings")
+        end
+
+        it 'navigates to meetings index page' do
+          visit '/meeting_rooms'
+
+          click_on("View All Meetings")
+
+          expect(page).to have_current_path('/meetings')
+          end
+        end
+      end
+    end
