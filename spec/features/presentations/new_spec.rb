@@ -56,7 +56,9 @@ describe 'New Presentation page' do
 
   describe 'site navigation' do
     it 'has a navigation bar with links to other index pages' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       expect(page).to have_link("Conference Manager Home")
       expect(page).to have_link("Conferences")
@@ -66,7 +68,9 @@ describe 'New Presentation page' do
     end
 
     it 'navigates to the welcome page' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       click_on("Conference Manager Home")
 
@@ -74,7 +78,9 @@ describe 'New Presentation page' do
     end
 
     it 'navigates to the conferences page' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       click_on("Conferences")
 
@@ -82,7 +88,9 @@ describe 'New Presentation page' do
     end
 
     it 'navigates to the meeting rooms page' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       click_on("Meeting Rooms")
 
@@ -90,7 +98,9 @@ describe 'New Presentation page' do
     end
 
     it 'navigates to the presentations page' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       click_on("Presentations")
 
@@ -98,7 +108,9 @@ describe 'New Presentation page' do
     end
 
     it 'navigates to the meetings page' do
-      visit "/presentations/new"
+      conference = create(:conference)
+
+      visit "/conferences/#{conference.id}/presentations/new"
 
       click_on("Meetings")
 

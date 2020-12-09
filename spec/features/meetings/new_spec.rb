@@ -16,11 +16,10 @@ describe 'New Meeting page' do
     expect(page).to have_content("New Meeting")
     expect(page).to have_selector('form')
     expect(page).to have_text('Meeting name:')
-    expect(page).to have_field('mename', type: 'text')
+    expect(page).to have_field('mename')
     expect(page).to have_text('Number of Participants:')
-    expect(page).to have_field('number of participants', type: 'text')
+    expect(page).to have_field('Number of Participants')
     expect(page).to have_text('Start Time:')
-    expect(page).to have_select('category')
     expect(page).to have_text('End Time')
   end
 

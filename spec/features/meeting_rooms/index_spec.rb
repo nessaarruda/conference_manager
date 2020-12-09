@@ -7,9 +7,6 @@ describe 'as a visitor' do
         has_projector: true,
         capacity: 30
       )
-
-
-
       visit "/meeting_rooms"
 
       expect(page).to have_content("Meeting Rooms")
@@ -43,7 +40,7 @@ describe 'as a visitor' do
       visit '/meeting_rooms'
       expect(meeting_room_2.name).to appear_before(meeting_room_1.name)
     end
-  end
+
   it 'Shows records that have a true value before records that have false' do
     meeting_room_1 = MeetingRoom.create(name: "Oprah",
       has_projector: true,
@@ -106,7 +103,7 @@ describe 'as a visitor' do
         within('#row-1') do
           expect(page).to have_content("0 meetings")
         end
-
+      end
         it 'has a link to the edit page for each meeting room' do
           meeting_room_1 = MeetingRoom.create(name: "AOC",
             has_projector: true,
@@ -124,13 +121,12 @@ describe 'as a visitor' do
 
           within('#row-0') { click_on("Update Meeting Room") }
 
-          expect(page).to have_current_path("/meeting_rooms/#{meeting_room_2.id}/edit?src=index")
+          expect(page).to have_current_path("/meeting_rooms/#{meeting_room_2.id}/edit")
 
           click_on("Update Meeting Room")
 
           expect(page).to have_current_path("/meeting_rooms")
         end
-
         it 'has a link to delete each meeting room' do
           meeting_room_1 = MeetingRoom.create(name: "AOC",
             has_projector: true,
@@ -200,20 +196,6 @@ describe 'as a visitor' do
             visit '/meeting_rooms'
 
             click_on("Meetings")
-
-            expect(page).to have_current_path('/meetings')
-          end
-
-          it 'has a link to view all meetings' do
-            visit '/meeting_rooms'
-
-            expect(page).to have_link("View All Meetings")
-          end
-
-          it 'navigates to meetings index page' do
-            visit '/meeting_rooms'
-
-            click_on("View All Meetings")
 
             expect(page).to have_current_path('/meetings')
           end

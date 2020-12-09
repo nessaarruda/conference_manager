@@ -112,8 +112,8 @@ describe 'As a visitor' do
                                  start_time: "Tuesday, 10am",
                                  end_time: "1 hour")
       visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
-      expect(page).to have_link("Sort Meetings Alphabetically")
-      click_on("Sort Meetings Alphabetically")
+      expect(page).to have_link("Sort Alphabetically")
+      click_on("Sort Alphabetically")
       expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings")
       expect(meeting_1.name).to appear_before(meeting_2.name)
    end
@@ -138,7 +138,7 @@ describe 'As a visitor' do
 
      within('#row-0') { click_on("Update Meeting") }
 
-     expect(page).to have_current_path("/meetings/#{meeting_2.id}/edit?src=index")
+     expect(page).to have_current_path("/meetings/#{meeting_2.id}/edit")
 
      click_on("Update Meeting")
 
@@ -209,9 +209,9 @@ describe 'As a visitor' do
 
         expect(page).to have_link(meeting_room_1.name)
 
-        click_on(meeting_room.name)
+        click_on(meeting_room_1.name)
 
-        expect(page).to have_current_path("/meeting_rooms/#{meeting.id}")
+        expect(page).to have_current_path("/meeting_rooms/#{meeting_room_1.id}")
       end
     end
   end

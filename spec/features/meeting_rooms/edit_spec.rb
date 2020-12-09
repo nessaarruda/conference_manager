@@ -23,13 +23,13 @@ describe 'edit meeting_rooms page' do
       capacity: 30
     )
 
-    visit "/meeting_rooms/#{meeting_room_1.id}/edit"
-
+    visit "/meeting_rooms/#{meeting_room_1.id}"
+    click_on 'Update Meeting Room'
     expect(page).to have_button('Update Meeting Room', type: 'submit')
 
     fill_in('metname', with: 'Oprah')
     fill_in('capacity', with: 30)
-    click_on('Update Meeting')
+    click_on('Update Meeting Room')
 
     expect(page).to have_current_path("/meeting_rooms/#{meeting_room_1.id}")
     expect(page).to have_content("Oprah")

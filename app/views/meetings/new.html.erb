@@ -1,5 +1,13 @@
-
-<h1>Create Meeting</h1>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
+<h1>New Meeting</h1>
 
 <form action='/meetings' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
@@ -8,9 +16,9 @@
   <input id='mename' type='text' name='meeting[name]'/><br/>
   <label for='number_of_participants'>Number of Participants: </label>
   <input id='number_of_participants' type='bigint' name='meeting[number_of_participants]'/><br/>
-  <label for='mestart_time'>start_time: </label>
+  <label for='mestart_time'>Start Time: </label>
   <input id='mestart_time' type='datetime-local' name='meeting[start_time]'/><br/>
-  <label for='end_time'>end_time: </label>
+  <label for='end_time'>End Time: </label>
   <input id='end_time' type='datetime-local' name='meeting[end_time]'/><br/>
   <input type='submit' value='Create Meeting'/>
 </form>

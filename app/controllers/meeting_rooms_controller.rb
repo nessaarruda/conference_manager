@@ -40,7 +40,7 @@ class MeetingRoomsController < ApplicationController
        has_projector: params[:meeting_room][:has_projector],
        capacity: params[:meeting_room][:capacity]
        })
-     redirect_to "/meeting_rooms/#{meeting_room.id}"
+     redirect_to params[:previous_request]
    end
 
    def destroy

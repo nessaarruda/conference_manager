@@ -10,11 +10,10 @@ describe 'Edit Meeting page' do
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
-  visit '/meetings'
 
     visit "/meetings/#{meeting.id}/edit"
 
-    expect(page).to have_content("Update #{meeting.name}")
+    expect(page).to have_content("Update Meeting #{meeting.name}")
     expect(page).to have_selector('form')
     expect(page).to have_text('Meeting Name:')
     expect(page).to have_field('mename', type: 'text')
@@ -25,17 +24,18 @@ describe 'Edit Meeting page' do
                                     has_projector: true,
                                     capacity: 30
                                   )
+
     meeting = meeting_room_1.meetings.create!(name: "Monday Meeting",
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
-  visit '/meetings'
 
-    visit "/meetings/#{meeting.id}/edit"
+    visit "/meetings/#{meeting.id}"
 
+    click_on('Update Meeting')
     expect(page).to have_button('Update Meeting', type: 'submit')
-
     fill_in('mename', with: 'Monday Meeting')
+
     click_on('Update Meeting')
 
     expect(page).to have_current_path("/meetings/#{meeting.id}")
@@ -50,18 +50,18 @@ describe 'Edit Meeting page' do
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
-  visit '/meetings'
 
-    visit "/meetings/#{meeting.id}/edit"
+    visit "/meetings/#{meeting.id}"
+    click_on('Update Meeting')
 
     fill_in 'Meeting Name', with: 'AOC'
     click_on('Update Meeting')
 
     expect(page).to have_content("AOC")
+    end
   end
-
   describe 'site navigation' do
-    xit 'has a navigation bar with links to other index pages' do
+    it 'has a navigation bar with links to other index pages' do
       meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                       has_projector: true,
                                       capacity: 30
@@ -70,7 +70,6 @@ describe 'Edit Meeting page' do
                                   number_of_participants: 10,
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
-    visit '/meetings'
 
       visit "/meetings/#{meeting.id}/edit"
 
@@ -81,7 +80,7 @@ describe 'Edit Meeting page' do
       expect(page).to have_link("Meetings")
     end
 
-    xit 'navigates to the welcome page' do
+    it 'navigates to the welcome page' do
       meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                       has_projector: true,
                                       capacity: 30
@@ -90,7 +89,6 @@ describe 'Edit Meeting page' do
                                   number_of_participants: 10,
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
-    visit '/meetings'
 
       visit "/meetings/#{meeting.id}/edit"
 
@@ -99,7 +97,7 @@ describe 'Edit Meeting page' do
       expect(page).to have_current_path('/')
     end
 
-    xit 'navigates to the meeting_rooms page' do
+    it 'navigates to the meeting_rooms page' do
       meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                       has_projector: true,
                                       capacity: 30
@@ -108,25 +106,6 @@ describe 'Edit Meeting page' do
                                   number_of_participants: 10,
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
-    visit '/meetings'
-
-      visit "/meetings/#{meeting.id}/edit"
-
-      click_on("Meetings")
-
-      expect(page).to have_current_path('/meeting_rooms')
-    end
-
-    xit 'navigates to the meeting rooms page' do
-      meeting_room_1 = MeetingRoom.create(name: "Oprah",
-                                      has_projector: true,
-                                      capacity: 30
-                                    )
-      meeting = meeting_room_1.meetings.create!(name: "Monday Meeting",
-                                  number_of_participants: 10,
-                                  start_time: "Monday, 10am",
-                                end_time: "1 hour")
-    visit '/meetings'
 
       visit "/meetings/#{meeting.id}/edit"
 
@@ -135,7 +114,7 @@ describe 'Edit Meeting page' do
       expect(page).to have_current_path('/meeting_rooms')
     end
 
-    xit 'navigates to the meetings page' do
+    it 'navigates to the meetings page' do
       meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                       has_projector: true,
                                       capacity: 30
@@ -144,7 +123,6 @@ describe 'Edit Meeting page' do
                                   number_of_participants: 10,
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
-    visit '/meetings'
 
       visit "/meetings/#{meeting.id}/edit"
 
@@ -162,7 +140,6 @@ describe 'Edit Meeting page' do
                                   number_of_participants: 10,
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
-    visit '/meetings'
 
       visit "/meetings/#{meeting.id}/edit"
 
@@ -171,4 +148,3 @@ describe 'Edit Meeting page' do
       expect(page).to have_current_path('/presentations')
     end
   end
-end
