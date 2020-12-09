@@ -16,8 +16,8 @@ describe 'Conferences Index' do
     it 'displays records in order by recency of creation' do
       conference_1 = create(:conference, created_at: DateTime.parse("20201101"))
       conference_2 = create(:conference, created_at: DateTime.parse("20201201"))
-      conference_3 = create(:conference, created_at: DateTime.parse("20201203"))
       conference_4 = create(:conference, created_at: DateTime.parse("20201202"))
+      conference_3 = create(:conference, created_at: DateTime.parse("20201203"))
 
       visit "/conferences"
 

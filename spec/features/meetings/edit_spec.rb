@@ -59,6 +59,7 @@ describe 'Edit Meeting page' do
 
     expect(page).to have_content("AOC")
   end
+<<<<<<< HEAD
 
   describe 'site navigation' do
     xit 'has a navigation bar with links to other index pages' do
@@ -171,4 +172,6 @@ describe 'Edit Meeting page' do
       expect(page).to have_current_path('/presentations')
     end
   end
+=======
+>>>>>>> main
 end
