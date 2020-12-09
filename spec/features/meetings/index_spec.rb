@@ -188,33 +188,8 @@ describe 'As a visitor' do
         expect(page).to have_current_path('/')
       end
 
-      it 'navigates to the meeting_rooms page' do
-        visit '/meetings'
-
-        click_on("Conferences")
-
-        expect(page).to have_current_path('/meeting_rooms')
-      end
-
-      it 'navigates to the meeting rooms page' do
-        visit '/meetings'
-
-        click_on("Meeting Rooms")
-
-        expect(page).to have_current_path('/meeting_rooms')
-      end
-
       it 'navigates to the meetings page' do
         visit '/meetings'
-
-        click_on("Meetings")
-
-        expect(page).to have_current_path('/meetings')
-      end
-
-      it 'navigates to the meetings page' do
-        visit '/meetings'
-
         click_on("Meetings")
 
         expect(page).to have_current_path('/meetings')
@@ -232,7 +207,7 @@ describe 'As a visitor' do
 
         visit '/meetings'
 
-        expect(page).to have_link(meeting_room.name)
+        expect(page).to have_link(meeting_room_1.name)
 
         click_on(meeting_room.name)
 

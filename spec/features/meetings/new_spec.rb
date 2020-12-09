@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'New Meeting page' do
   it 'has a form to add a new presentation' do
-    meeting_room_1 = MeetingRoom.create(name: "Oprah",
+    meeting_room = MeetingRoom.create(name: "Oprah",
                                     has_projector: true,
                                     capacity: 30
                                   )
-    meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+    meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
@@ -25,11 +25,11 @@ describe 'New Meeting page' do
   end
 
   it 'has a button to Create Meeting' do
-    meeting_room_1 = MeetingRoom.create(name: "Oprah",
+    meeting_room = MeetingRoom.create(name: "Oprah",
                                     has_projector: true,
                                     capacity: 30
                                   )
-    meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+    meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
@@ -41,7 +41,15 @@ describe 'New Meeting page' do
 
   describe 'site navigation' do
     it 'has a navigation bar with links to other index pages' do
-      visit "/meetings/new"
+      meeting_room = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
+      visit "/meeting_rooms/#{meeting_room.id}/meetings/new"
 
       expect(page).to have_link("Conference Manager Home")
       expect(page).to have_link("Conferences")
@@ -51,7 +59,15 @@ describe 'New Meeting page' do
     end
 
     it 'navigates to the welcome page' do
-      visit "/meetings/new"
+      meeting_room = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
+      visit "/meeting_rooms/#{meeting_room.id}/meetings/new"
 
       click_on("Conference Manager Home")
 
@@ -59,15 +75,16 @@ describe 'New Meeting page' do
     end
 
     it 'navigates to the meeting_rooms page' do
-      visit "/meetings/new"
+      meeting_room = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
 
-      click_on("Meeting Rooms")
-
-      expect(page).to have_current_path('/meeting_rooms')
-    end
-
-    it 'navigates to the meeting rooms page' do
-      visit "/meetings/new"
+      visit "/meeting_rooms/#{meeting_room.id}/meetings/new"
 
       click_on("Meeting Rooms")
 
@@ -75,15 +92,15 @@ describe 'New Meeting page' do
     end
 
     it 'navigates to the meetings page' do
-      visit "/meetings/new"
-
-      click_on("Meetings")
-
-      expect(page).to have_current_path('/meetings')
-    end
-
-    it 'navigates to the meetings page' do
-      visit "/meetings/new"
+      meeting_room = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
+      visit "/meeting_rooms/#{meeting_room.id}/meetings/new"
 
       click_on("Meetings")
 

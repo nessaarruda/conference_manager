@@ -30,7 +30,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       expect(page).to have_link("Conference Manager Home")
       expect(page).to have_link("Conferences")
@@ -49,7 +49,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       click_on("Conference Manager Home")
 
@@ -66,7 +66,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       click_on("Meeting Rooms")
 
@@ -83,7 +83,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       click_on("Meeting Rooms")
 
@@ -100,7 +100,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       click_on("Meetings")
 
@@ -117,7 +117,7 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       click_on("Meetings")
 
@@ -125,16 +125,22 @@ RSpec.describe 'show meeting page' do
     end
 
     it 'has a link to view its meeting_room' do
-      meeting_room = create(:meeting_room)
-      meeting = create(:meeting, meeting_room: meeting_room)
+      meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                      has_projector: true,
+                                      capacity: 30
+                                    )
+      meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                  number_of_participants: 10,
+                                  start_time: "Monday, 10am",
+                                end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
-      expect(page).to have_link(meeting_room.name)
+      expect(page).to have_link(meeting_room_1.name)
 
-      click_on(meeting_room.name)
+      click_on(meeting_room_1.name)
 
-      expect(page).to have_current_path("/meeting_rooms/#{meeting_room.id}")
+      expect(page).to have_current_path("/meeting_rooms/#{meeting_room_1.id}")
     end
 
     it 'has a link to itself' do
@@ -147,13 +153,13 @@ RSpec.describe 'show meeting page' do
                                   start_time: "Monday, 10am",
                                 end_time: "1 hour")
 
-      visit "/meetings/#{meeting.id}"
+      visit "/meetings/#{meeting_1.id}"
 
       expect(page).to have_link(meeting_1.name)
 
-      click_on(meeting.name)
+      click_on(meeting_1.name)
 
-      expect(page).to have_current_path("/meetings/#{meeting.id}")
+      expect(page).to have_current_path("/meetings/#{meeting_1.id}")
     end
   end
 end

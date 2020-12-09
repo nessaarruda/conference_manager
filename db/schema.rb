@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2020_12_08_004904) do
-
+ActiveRecord::Schema.define(version: 2020_12_09_024732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "conferences", force: :cascade do |t|
+    t.string "name"
+    t.string "organization"
+    t.integer "attendees"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at"
+    t.integer "size"
+  end
 
   create_table "meeting_rooms", force: :cascade do |t|
     t.string "name"
@@ -32,17 +39,8 @@ ActiveRecord::Schema.define(version: 2020_12_08_004904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "meeting_room_id"
-    t.datetime "start_time"
     t.datetime "end_time"
-  end
-
-  create_table "conferences", force: :cascade do |t|
-    t.string "name"
-    t.string "organization"
-    t.integer "attendees"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.datetime "created_at"
+    t.datetime "start_time"
   end
 
   create_table "presentations", force: :cascade do |t|
