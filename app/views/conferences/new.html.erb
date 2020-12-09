@@ -1,30 +1,23 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
 <h1>New Conference</h1>
 
-<form action='/conferences' method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <label for='confname'>Conference name: </label>
-  <input id='confname' type='text' name='conference[name]'/><br/>
-  <label for='org'>Organization: </label>
-  <input id='org' type='text' name='conference[organization]'/><br/>
-  <label for='size'>Expected attendees: </label>
-  <input id='size' type='bigint' name='conference[size]'/><br/>
-  <div>
-    <input type='hidden' name='conference[start_date]' value='2021-01-01'
-    <label for='start'>Dates: </label>
-    <input id='start' type='date' name='conference[start_date]'/>
-    <input type='hidden' name='conference[end_date]' value='2021-01-02'
-    <label for='end'> to </label>
-    <input id='end' type='date' name='conference[end_date]'/><br/>
-  </div>
-  <input type='submit' value='Create Conference'/>
-</form>
+<%= form_tag '/conferences' do %>
+  <%= label_tag "Conference name " %>
+  <%= text_field_tag :name %><br>
+  <%= label_tag :organization %>
+  <%= text_field_tag :organization %><br>
+  <%= label_tag "Expected attendees" %>
+  <%= number_field_tag :size %><br>
+  <%= label_tag "Dates" %>
+  <%= date_field_tag :start_date %>
+  <%= label_tag " to " %>
+  <%= date_field_tag :end_date %><br>
+  <%= submit_tag "Create Conference" %>
+<% end %>

@@ -18,6 +18,7 @@
 
 <% @conferences.each_with_index do |conference, index| %>
   <div id='<%= "row-#{index}" %>'>
+    <hr>
     <h2><%= link_to conference.name, "/conferences/#{conference.id}" %></h2>
     <h3><%= "#{format_date(conference.start_date)} to #{format_date(conference.end_date)}" %></h3>
     <p><%= "#{conference.presentations.count} presentations" %></p>

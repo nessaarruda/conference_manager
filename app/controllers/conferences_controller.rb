@@ -28,6 +28,6 @@ class ConferencesController < ApplicationController
 
   private
   def conference_params
-    params[:conference].permit(:name, :organization, :size, :start_date, :end_date)
+    params.permit(:name, :organization, :size, :start_date, :end_date)
   end
 end
