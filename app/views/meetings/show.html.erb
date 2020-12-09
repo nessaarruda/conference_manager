@@ -1,12 +1,12 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+
+</nav>
+
 <h1><%= link_to @meeting.name, "/meetings/#{@meeting.id}" %></h1>
 <h1><%= link_to @meeting.meeting_room.name, "/meeting_rooms/#{@meeting.meeting_room.id}" %></h1>
 <h2>Number of Participants: <%= @meeting.number_of_participants %></h2>

@@ -1,13 +1,12 @@
+<nav>
 
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+
+</nav>
+
 <h1>All Meeting Rooms</h1>
 <%= form_tag '/meeting_rooms', method: :get do %>
   <%= number_field_tag :capacity %>
