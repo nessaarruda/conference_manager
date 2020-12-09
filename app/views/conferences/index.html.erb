@@ -1,0 +1,8 @@
+<h1>Conference List</h1>
+
+<% @conferences.each do |conference| %>
+  <h3><a href="/conferences/<%= conference.id %>"><%= conference.name %></a></h3>
+  <p><%= "#{conference.start} to #{conference.end}" %></p>
+<% end %>
+<br>
+<a href='/conferences/new'>New Conference</a>
