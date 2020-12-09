@@ -1,0 +1,30 @@
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
+
+<h1>New Conference</h1>
+
+<form action='/conferences' method='post'>
+  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <label for='confname'>Conference name: </label>
+  <input id='confname' type='text' name='conference[name]'/><br/>
+  <label for='org'>Organization: </label>
+  <input id='org' type='text' name='conference[organization]'/><br/>
+  <label for='size'>Expected attendees: </label>
+  <input id='size' type='bigint' name='conference[size]'/><br/>
+  <div>
+    <input type='hidden' name='conference[start_date]' value='2021-01-01'
+    <label for='start'>Dates: </label>
+    <input id='start' type='date' name='conference[start_date]'/>
+    <input type='hidden' name='conference[end_date]' value='2021-01-02'
+    <label for='end'> to </label>
+    <input id='end' type='date' name='conference[end_date]'/><br/>
+  </div>
+  <input type='submit' value='Create Conference'/>
+</form>
