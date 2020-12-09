@@ -20,11 +20,7 @@ class MeetingRoomsController < ApplicationController
   end
 
   def create
-    meeting_room = MeetingRoom.create({
-                                    name: params[:meeting_room][:name],
-                                    has_projector: params[:meeting_room][:has_projector],
-                                    capacity: params[:meeting_room][:capacity]
-                                    })
+    MeetingRoom.create(meeting_room_params)
 
     redirect_to '/meeting_rooms'
   end
@@ -46,5 +42,11 @@ class MeetingRoomsController < ApplicationController
    def destroy
      MeetingRoom.destroy(params[:id])
      redirect_to '/meeting_rooms'
+   end
+
+   private
+
+   def meeting_room_params
+     params.permit(:name, :has_projector, :capacity)
    end
  end

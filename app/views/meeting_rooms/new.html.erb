@@ -8,14 +8,13 @@
 
 <h1>New Meeting Room</h1>
 
-<form action='/meeting_rooms' method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <label for='metname'>MeetingRoom name: </label>
-  <input id='metname' type='text' name='meeting_room[name]'/><br/>
-  <label for='methas_projector'>Has Projector: </label>
-  <input id='methas_projector' type='boolean' name='meeting_room[has_projector]'/><br/>
-  <label for='capacity'>Capacity: </label>
-  <input id='capacity' type='bigint' name='meeting_room[capacity]'/><br/>
-  <input type='submit' value='Create Meeting Room'/>
-
-</form>
+<%= form_tag '/meeting_rooms' do %>
+  <%= label_tag  "Meeting room name"%>
+  <%= text_field_tag :name %><br>
+  <%= label_tag :capacity %>
+  <%= number_field_tag :capacity %><br>
+  <%= label_tag :has_projector %>
+  <%= hidden_field_tag :has_projector, false %>
+  <%= check_box_tag :has_projector, true %><br><br>
+  <%= submit_tag "Create Meeting Room" %>
+<% end %>
