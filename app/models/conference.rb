@@ -6,10 +6,10 @@ class Conference < ApplicationRecord
       select("conferences.*, count(*) AS count")
       .left_outer_joins(:presentations)
       .group(:id)
-      .where('size >= ?', (params_attendees || 0))
+      .where('size >= ?', params_attendees.to_i)
       .order(count: :desc, created_at: :desc)
     else
-      where('size >= ?', (params_attendees || 0))
+      where('size >= ?', params_attendees.to_i)
       .order(created_at: :desc)
     end
   end

@@ -8,7 +8,7 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    conference = Conference.create(conference_params)
+    Conference.create(conference_params)
     redirect_to '/conferences'
   end
 
@@ -17,8 +17,7 @@ class ConferencesController < ApplicationController
   end
 
   def update
-    conference = Conference.find(params[:id])
-    conference.update(conference_params)
+    conference = Conference.find(params[:id]).update(conference_params)
     redirect_to params[:previous_request]
   end
 
