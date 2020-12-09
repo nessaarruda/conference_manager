@@ -1,0 +1,17 @@
+<h1>All Meeting Rooms</h1>
+<%= form_tag '/meeting_rooms', method: :get do %>
+  <%= number_field_tag :capacity %>
+  <%= submit_tag 'Only return records with more than minimum capacity' %>
+<% end %>
+<% @meeting_rooms.each_with_index do |meeting_room, index|%>
+  <div id="<%= "row-#{index}" %>">
+    <h2>Name: <%= link_to meeting_room.name, "/meeting_rooms/#{meeting_room.id}" %> </h2>
+    <h3>Capacity: <%= meeting_room.capacity %></h3>
+    <p><%= "#{meeting_room.meetings.count} meetings" %></p>
+    <p>Has projector: <%= meeting_room.has_projector %></p>
+    <br>
+    <a href='/meeting_rooms/<% meeting_room.id %>/edit'>Update Meeting Room</a><br>
+  </div>
+<% end %>
+<%= link_to 'Sort by Number of Meetings', "/meeting_rooms?sort=true" %><br>
+<%= link_to "New Meeting Room", "/meeting_rooms/new" %>

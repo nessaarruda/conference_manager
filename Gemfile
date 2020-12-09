@@ -43,7 +43,9 @@ group :development, :test do
   gem 'launchy'
   gem 'shoulda-matchers'
   gem 'simplecov'
+  gem 'nyan-cat-formatter'
   gem 'factory_bot_rails'
+  gem 'pgreset'
   gem 'faker'
 end
 
