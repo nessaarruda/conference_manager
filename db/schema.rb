@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2020_12_09_024732) do
 
   # These are extensions that must be enabled in order to support this database
@@ -38,9 +39,10 @@ ActiveRecord::Schema.define(version: 2020_12_09_024732) do
     t.integer "number_of_participants"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "meeting_room_id"
     t.datetime "end_time"
     t.datetime "start_time"
+    t.bigint "meeting_room_id"
+    t.index ["meeting_room_id"], name: "index_meetings_on_meeting_room_id"
   end
 
   create_table "presentations", force: :cascade do |t|
@@ -54,5 +56,6 @@ ActiveRecord::Schema.define(version: 2020_12_09_024732) do
     t.index ["conference_id"], name: "index_presentations_on_conference_id"
   end
 
+  add_foreign_key "meetings", "meeting_rooms"
   add_foreign_key "presentations", "conferences"
 end

@@ -1,29 +1,15 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
-<h2>
-  <a href="/conferences/<%= @presentation.conference.id %>"><%= @presentation.conference.name %></a>
-</h2>
-
-<h1>
-  <a href="/presentations/<%= @presentation.id %>"><%= @presentation.name %></a>
-</h1>
+<h2><%= link_to @presentation.conference.name, "/conferences/#{@presentation.conference.id}" %></h2>
+<h1><%= link_to @presentation.name, "/presentations/#{@presentation.id}" %></h1>
 <h3>Presenter: <%= @presentation.presenter %></h3>
 <h3>Category: <%= @presentation.category %></h3>
-
-<p>projector: <%= @presentation.projector_needed %></p>
-<br/>
-<a href='/presentations/<%= @presentation.id %>/edit'>Update Presentation</a>
-<form action='/presentations/<%= @presentation.id %>' method="post">
-  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-  <input type='hidden' name='_method' value="DELETE">
-  <input type='hidden' name="previous_request" value='<%= request.referrer %>'>
-  <input type='submit' value='Delete Presentation'/>
-</form>
+<p>projector needed: <%= @presentation.projector_needed %></p>
+<h4><%= link_to "Update Presentation", "/presentations/#{@presentation.id}/edit" %></h4>
+<h4><%= button_to "Delete Presentation", presentation_path(@presentation, previous_request: request.referrer), method: :delete %></h4>

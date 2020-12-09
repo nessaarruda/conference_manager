@@ -29,7 +29,7 @@ describe 'Show Presentation page' do
     presentation = create(:presentation)
 
     visit "/presentations"
-    click_on("#{presentation.name}")
+    click_on(presentation.name)
 
     expect(page).to have_button("Delete Presentation")
 

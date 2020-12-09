@@ -4,20 +4,22 @@
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="/">Conference Manager Home</a>
-      <a href='/conferences'>Conferences</a>
-      <a href='/presentations'>Presentations</a>
-      <a href='/meeting_rooms'>Meeting Rooms</a>
-      <a href='/meetings'>Meetings</a>
-    </nav>
-  </header>
+  <nav>
+    <%= link_to "Conference Manager Home", '/' %>
+    <%= link_to "Conferences", "/conferences" %>
+    <%= link_to "Presentations", "/presentations" %>
+    <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+    <%= link_to "Meetings", "/meetings" %>
+  </nav>
 
   <h1>Presentation List</h1>
 
   <p><%= "#{@presentations.count} presentations" %></p>
 
+  <% if params[:id] %>
+    <%= link_to "Create Presentation", "/conferences/#{params[:id]}/presentations/new" %>
+  <% end %>
+  <br>
   <table id='presentations'>
     <tr>
       <th>Name<br><%= link_to "Sort Alphabetically", :sort => "name" %></th>
@@ -26,34 +28,20 @@
       <th>Category</th>
       <th>projector needed</th>
       <th>created</th>
-      <th>updated</th>
+      <th>Update</th>
+      <th>Delete</th>
     </tr>
     <% @presentations.each_with_index do |presentation, index| %>
       <tr id='<%= "row-#{index}" %>'>
-        <td><a href="/presentations/<%= presentation.id %>"><%= presentation.name %></td>
+        <td><%= link_to presentation.name, "/presentations/#{presentation.id}" %></td>
         <td><%= presentation.presenter %></td>
-        <td><a href="/conferences/<%= presentation.conference.id %>"><%= presentation.conference.name %></td>
+        <td><%= link_to presentation.conference.name, "/conferences/#{presentation.conference_id}" %></td>
         <td><%= presentation.category %></td>
         <td><%= presentation.projector_needed %></td>
-        <td style='font-size:80%'><%= presentation.created_at.strftime('%m-%d-%Y %H:%M') %></td>
-        <td style='font-size:80%'><%= presentation.updated_at.strftime('%m-%d-%Y %H:%M') %></td>
-        <td><a href="/presentations/<%= presentation.id %>/edit?src=<%= params[:id] || "index" %>">Update Presentation</a></td>
-        <td>
-          <form action='/presentations/<%= presentation.id %>' method="post">
-            <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-            <input type='hidden' name='_method' value="DELETE">
-            <input type='hidden' name="previous_request" value='<%= request.path %>'>
-            <input type='submit' value='Delete Presentation'/>
-          </form>
-        </td>
+        <td style='font-size:80%'><%= format_timestamp(presentation.created_at) %></td>
+        <td><%= link_to "Update Presentation", "/presentations/#{presentation.id}/edit" %></td>
+        <td><%= button_to "Delete Presentation", presentation_path(presentation, previous_request: request.path), method: :delete %></td>
       </tr>
     <% end %>
   </table>
-  <% if params[:id] %>
-    <form action="/conferences/<%= params[:id] %>/presentations/new" method="get">
-      <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-      <input type='hidden' name='conference_id' value="<%= params[:id] %>"/>
-      <input type='submit' value='Create Presentation'/>
-    </form>
-  <% end %>
 </body>

@@ -6,16 +6,15 @@ describe 'New Conference page' do
 
     expect(page).to have_content("New Conference")
     expect(page).to have_selector('form')
-    expect(page).to have_text('Conference name:')
-    expect(page).to have_field('confname', type: 'text')
-    expect(page).to have_text('Organization:')
-    expect(page).to have_field('org', type: 'text')
-    expect(page).to have_text('Expected attendees:')
-    expect(page).to have_field('size', type: 'bigint')
-    expect(page).to have_text('Dates:')
-    expect(page).to have_field('start', type: 'date')
-    expect(page).to have_text('to')
-    expect(page).to have_field('end', type: 'date')
+    expect(page).to have_text('Conference name')
+    expect(page).to have_field(:name)
+    expect(page).to have_text('Organization')
+    expect(page).to have_field(:organization)
+    expect(page).to have_text('Expected attendees')
+    expect(page).to have_field(:size)
+    expect(page).to have_text('Dates')
+    expect(page).to have_field(:start_date)
+    expect(page).to have_field(:end_date)
   end
 
   it 'has a button to Create Conference' do
@@ -27,11 +26,11 @@ describe 'New Conference page' do
   it 'creates a new conference and redirects to the conferences index' do
     visit '/conferences/new'
 
-    fill_in('confname', with: 'World Ruby Conference')
-    fill_in('org', with: 'Ruby Association')
-    fill_in('size', with: 2000)
-    fill_in('start', with: "2021-01-19")
-    fill_in('end', with: "2021-01-21")
+    fill_in(:name, with: 'World Ruby Conference')
+    fill_in(:organization, with: 'Ruby Association')
+    fill_in(:size, with: 2000)
+    fill_in(:start_date, with: "2021-01-19")
+    fill_in(:end_date, with: "2021-01-21")
     click_on('Create Conference')
 
     conference = Conference.find_by(name: 'World Ruby Conference')

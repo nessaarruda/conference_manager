@@ -46,7 +46,7 @@ describe 'Conferences Index' do
     it 'has a field that allows a user to select records by number of attendees' do
       visit "/conferences"
 
-      expect(page).to have_field('number_filter', type: 'bigint')
+      expect(page).to have_field(:attendees, type: :number)
     end
 
     it 'allows the user to select conferences by number of attendees' do
@@ -56,16 +56,16 @@ describe 'Conferences Index' do
       conference_4 = create(:conference, size: 430)
 
       visit "/conferences"
-      fill_in('number_filter', with: 1000)
-      click_on('filter_button')
+      fill_in(:attendees, with: 1000)
+      click_on("Only return records with attendance over")
 
       expect(page).to have_content(conference_1.name)
       expect(page).to have_content(conference_2.name)
       expect(page).to have_content(conference_3.name)
       expect(page).not_to have_content(conference_4.name)
 
-      fill_in('number_filter', with: 5000)
-      click_on('filter_button')
+      fill_in(:attendees, with: 5000)
+      click_on("Only return records with attendance over")
 
       expect(page).to have_content(conference_1.name)
       expect(page).not_to have_content(conference_2.name)
@@ -130,7 +130,7 @@ describe 'Conferences Index' do
 
       within('#row-0') { click_on("Update Conference") }
 
-      expect(page).to have_current_path("/conferences/#{conference_4.id}/edit?src=index")
+      expect(page).to have_current_path("/conferences/#{conference_4.id}/edit")
 
       click_on("Update Conference")
 
@@ -221,20 +221,6 @@ describe 'Conferences Index' do
       click_on("Meetings")
 
       expect(page).to have_current_path('/meetings')
-    end
-
-    it 'has a link to view all presentations' do
-      visit '/conferences'
-
-      expect(page).to have_link("View All Presentations")
-    end
-
-    it 'navigates to presentations index page' do
-      visit '/conferences'
-
-      click_on("View All Presentations")
-
-      expect(page).to have_current_path('/presentations')
     end
   end
 end

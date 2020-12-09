@@ -12,7 +12,7 @@ class PresentationsController < ApplicationController
 
   def create
     Presentation.create(presentation_params)
-    redirect_to "/conferences/#{params[:presentation][:conference_id]}/presentations"
+    redirect_to "/conferences/#{params[:id]}/presentations"
   end
 
   def edit
@@ -31,6 +31,6 @@ class PresentationsController < ApplicationController
 
   private
   def presentation_params
-    params[:presentation].permit!
+    params.permit(:conference_id, :name, :presenter, :category, :projector_needed)
   end
 end

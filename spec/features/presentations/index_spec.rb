@@ -130,9 +130,9 @@ describe 'Presentations Index' do
 
       visit "/conferences/#{conference_1.id}/presentations"
 
-      expect(page).to have_button("Create Presentation")
+      expect(page).to have_link("Create Presentation")
 
-      click_button("Create Presentation")
+      click_link("Create Presentation")
 
       expect(current_path).to eq("/conferences/#{conference_1.id}/presentations/new")
     end
@@ -152,7 +152,7 @@ describe 'Presentations Index' do
 
       within('#row-0') { click_on("Update Presentation") }
 
-      expect(page).to have_current_path("/presentations/#{presentation_4.id}/edit?src=index")
+      expect(page).to have_current_path("/presentations/#{presentation_4.id}/edit")
 
       click_on("Update Presentation")
 

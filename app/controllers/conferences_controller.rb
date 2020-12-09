@@ -1,11 +1,6 @@
 class ConferencesController < ApplicationController
   def index
-    if params["sort"]
-      @conferences = Conference.select("conferences.*, count(*) AS count").joins(:presentations).group(:id).order(count: :desc)
-       # "SELECT conferences.*, count(*) AS count FROM conferences INNER JOIN presentations ON conferences.id=presentations.conference_id GROUP BY conferences.id ORDER BY count DESC;"
-    else
-      @conferences = Conference.where('size >= ?', (params[:attendees] || 0)).order(created_at: :desc)
-    end
+    @conferences = Conference.select_conferences(params[:attendees], params[:sort])
   end
 
   def show
@@ -13,13 +8,7 @@ class ConferencesController < ApplicationController
   end
 
   def create
-    conference = Conference.create({
-      name: params[:conference][:name].titleize,
-      organization: params[:conference][:organization].titleize,
-      size: params[:conference][:size],
-      start_date: params[:conference][:start_date],
-      end_date: params[:conference][:end_date]
-      })
+    Conference.create(conference_params)
     redirect_to '/conferences'
   end
 
@@ -28,23 +17,17 @@ class ConferencesController < ApplicationController
   end
 
   def update
-    conference = Conference.find(params[:id])
-    conference.update({
-      name: params[:conference][:name],
-      organization: params[:conference][:organization],
-      size: params[:conference][:size],
-      start_date: params[:conference][:start_date],
-      end_date: params[:conference][:end_date]
-      })
-    if params[:src] == 'index'
-      redirect_to "/conferences"
-    else
-      redirect_to "/conferences/#{conference.id}"
-    end
+    Conference.find(params[:id]).update(conference_params)
+    redirect_to params[:previous_request]
   end
 
   def destroy
     Conference.destroy(params[:id])
     redirect_to '/conferences'
+  end
+
+  private
+  def conference_params
+    params.permit(:name, :organization, :size, :start_date, :end_date)
   end
 end
