@@ -1,7 +1,18 @@
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
+
 <h1>Update Meeting Room </h1>
 
 <form action='/meeting_rooms/<%= @meeting_room.id %>' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <input type='hidden' name='previous_request' value="<%= request.referrer %>">
   <input type='hidden' name="_method" value="PATCH" />
   <label for='metname'>Meeting Room name: </label>
   <input id='metname' type='text' name='meeting_room[name]' value='<%= @meeting_room.name %>'/><br/>

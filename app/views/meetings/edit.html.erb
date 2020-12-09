@@ -1,7 +1,17 @@
-<h1>Update <%= @meeting.name %></h1>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
+<h1>Update Meeting <%= @meeting.name %></h1>
 
 <form action='/meetings/<%= @meeting.id %>' method='post'>
   <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
+  <input type='hidden' name='previous_request' value="<%= request.referrer %>">
   <input type='hidden' name="_method" value="PATCH" />
   <label for='mename'>Meeting Name: </label>
   <input id='mename' type='text' name='meeting[name]' value='<%= @meeting.name %>'/><br/>

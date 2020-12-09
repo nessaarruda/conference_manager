@@ -38,6 +38,11 @@ class MeetingsController < ApplicationController
 
       })
 
-    redirect_to "/meetings/#{params[:id]}"
+    redirect_to params[:previous_request]
+  end
+
+  def destroy
+    Meeting.destroy(params[:id])
+    redirect_to params[:previous_request]
   end
 end

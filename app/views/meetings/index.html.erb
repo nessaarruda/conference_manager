@@ -1,16 +1,36 @@
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
 <h1>Meetings</h1>
-<%= link_to "Sort Meetings Alphabetically", "/meeting_rooms/#{params[:id]}/meetings?sort=name" %>
+<%= link_to "Sort Alphabetically", "/meeting_rooms/#{params[:id]}/meetings?sort=name" %>
 <%= form_tag '/meetings', method: :get do %>
   <%= number_field_tag :number_of_participants %>
   <%= submit_tag 'Only return records with more than minimum participants' %>
 <% end %>
 <p><%= "#{@meetings.count} meetings" %></p>
-<% @meetings.each do |meeting| %>
+<% @meetings.each_with_index do |meeting, index| %>
+  <div id=<%= "row-#{index}" %>>
 
   <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.name %></a></h3>
+  <h3><a href="/meeting_rooms/<%= meeting.meeting_room.id %>"><%= meeting.meeting_room.name %></a></h3>
   <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.number_of_participants %></a></h3>
   <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.start_time %></a></h3>
   <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.end_time %></a></h3>
+  <%= link_to 'Update Meeting', "/meetings/#{meeting.id}/edit" %>
+  <form action='/meetings/<%= meeting.id %>' method="post">
+    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+    <input type='hidden' name='_method' value="DELETE">
+    <input type='hidden' name="previous_request" value='<%= request.path %>'>
+    <input type='submit' value='Delete Meeting'/>
+  </form>
+  </div>
 <% end %>
-<br>
 <a href="/meeting_rooms/<%= params[:id] %>/meetings/new">Create Meeting</a>
+
+<br>

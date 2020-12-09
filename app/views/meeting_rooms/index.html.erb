@@ -1,3 +1,13 @@
+
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
 <h1>All Meeting Rooms</h1>
 <%= form_tag '/meeting_rooms', method: :get do %>
   <%= number_field_tag :capacity %>
@@ -10,7 +20,9 @@
     <p><%= "#{meeting_room.meetings.count} meetings" %></p>
     <p>Has projector: <%= meeting_room.has_projector %></p>
     <br>
-    <a href='/meeting_rooms/<% meeting_room.id %>/edit'>Update Meeting Room</a><br>
+    <a href='/meeting_rooms/<%= meeting_room.id %>/edit'>Update Meeting Room</a><br>
+  <%= button_to 'Delete Meeting Room', "/meeting_rooms/#{meeting_room.id}", method: :delete%><br>
+
   </div>
 <% end %>
 <%= link_to 'Sort by Number of Meetings', "/meeting_rooms?sort=true" %><br>

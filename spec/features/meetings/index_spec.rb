@@ -57,7 +57,7 @@ describe 'As a visitor' do
    expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings/new")
  end
 
- it 'displays a count of the number of presentations associated with the conference' do
+ it 'displays a count of the number of meetings associated with the conference' do
    meeting_room_1 = MeetingRoom.create(name: "Oprah",
                                    has_projector: true,
                                    capacity: 30
@@ -112,9 +112,106 @@ describe 'As a visitor' do
                                  start_time: "Tuesday, 10am",
                                  end_time: "1 hour")
       visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
-      expect(page).to have_link("Sort Meetings Alphabetically")
-      click_on("Sort Meetings Alphabetically")
+      expect(page).to have_link("Sort Alphabetically")
+      click_on("Sort Alphabetically")
       expect(current_path).to eq("/meeting_rooms/#{meeting_room_1.id}/meetings")
       expect(meeting_1.name).to appear_before(meeting_2.name)
    end
-end
+
+   it 'has links to the edit page for each meeting' do
+     meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                     has_projector: true,
+                                     capacity: 30
+                                   )
+     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                 number_of_participants: 10,
+                                 start_time: "Monday, 10am",
+                                 end_time: "1 hour")
+     meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                 number_of_participants: 15,
+                                 start_time: "Tuesday, 10am",
+                                 end_time: "1 hour")
+     visit '/meetings'
+
+     within('#row-0') { expect(page).to have_link("Update Meeting") }
+     within('#row-1') { expect(page).to have_link("Update Meeting") }
+
+     within('#row-0') { click_on("Update Meeting") }
+
+     expect(page).to have_current_path("/meetings/#{meeting_2.id}/edit")
+
+     click_on("Update Meeting")
+
+     expect(page).to have_current_path("/meetings")
+   end
+
+   it 'has links to delete each presentation' do
+     meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                     has_projector: true,
+                                     capacity: 30
+                                   )
+     meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                 number_of_participants: 10,
+                                 start_time: "Monday, 10am",
+                                 end_time: "1 hour")
+     meeting_2 = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
+                                 number_of_participants: 15,
+                                 start_time: "Tuesday, 10am",
+                                 end_time: "1 hour")
+     visit '/meetings'
+
+     within('#row-0') { expect(page).to have_button("Delete Meeting") }
+     within('#row-1') { expect(page).to have_button("Delete Meeting") }
+
+     within('#row-0') { click_on("Delete Meeting") }
+
+     expect(page).to have_current_path('/meetings')
+     expect(page).not_to have_content(meeting_2.name)
+     end
+
+    describe 'site navigation' do
+      it 'has a navigation bar with links to other index pages' do
+        visit '/meetings'
+
+        expect(page).to have_link("Conference Manager Home")
+        expect(page).to have_link("Conferences")
+        expect(page).to have_link("Meeting Rooms")
+        expect(page).to have_link("Presentations")
+        expect(page).to have_link("Meetings")
+      end
+
+      it 'navigates to the welcome page' do
+        visit '/meetings'
+
+        click_on("Conference Manager Home")
+
+        expect(page).to have_current_path('/')
+      end
+
+      it 'navigates to the meetings page' do
+        visit '/meetings'
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'has links to navigate to meeting_rooms' do
+        meeting_room_1 = MeetingRoom.create(name: "Oprah",
+                                        has_projector: true,
+                                        capacity: 30
+                                      )
+        meeting_1 = meeting_room_1.meetings.create!(name: "Monday Meeting",
+                                    number_of_participants: 10,
+                                    start_time: "Monday, 10am",
+                                  end_time: "1 hour")
+
+        visit '/meetings'
+
+        expect(page).to have_link(meeting_room_1.name)
+
+        click_on(meeting_room_1.name)
+
+        expect(page).to have_current_path("/meeting_rooms/#{meeting_room_1.id}")
+      end
+    end
+  end

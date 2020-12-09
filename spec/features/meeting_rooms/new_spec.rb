@@ -27,5 +27,56 @@ describe 'as a visitor' do
 
       expect(page).to have_current_path('/meeting_rooms')
     end
+    describe 'site navigation' do
+      it 'has a navigation bar with links to other index pages' do
+        visit "/meeting_rooms/new"
+
+        expect(page).to have_link("Conference Manager Home")
+        expect(page).to have_link("Meeting Rooms")
+        expect(page).to have_link("Conferences")
+        expect(page).to have_link("Presentations")
+        expect(page).to have_link("Meetings")
+      end
+
+      it 'navigates to the welcome page' do
+        visit "/meeting_rooms/new"
+
+        click_on("Conference Manager Home")
+
+        expect(page).to have_current_path('/')
+      end
+
+      it 'navigates to the meeting_rooms page' do
+        visit "/meeting_rooms/new"
+
+        click_on("Meeting Rooms")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the meeting rooms page' do
+        visit "/meeting_rooms/new"
+
+        click_on("Meeting Rooms")
+
+        expect(page).to have_current_path('/meeting_rooms')
+      end
+
+      it 'navigates to the presentations page' do
+        visit "/meeting_rooms/new"
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+
+      it 'navigates to the meetings page' do
+        visit "/meeting_rooms/new"
+
+        click_on("Meetings")
+
+        expect(page).to have_current_path('/meetings')
+      end
+    end
   end
 end

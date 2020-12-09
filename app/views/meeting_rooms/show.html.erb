@@ -1,7 +1,16 @@
-<a href="/meeting_rooms">Meeting Room Index</a>
+<header>
+  <nav>
+    <a href="/">Conference Manager Home</a>
+    <a href='/conferences'>Conferences</a>
+    <a href='/presentations'>Presentations</a>
+    <a href='/meeting_rooms'>Meeting Rooms</a>
+    <a href='/meetings'>Meetings</a>
+  </nav>
+</header>
+<a href="/meeting_rooms/<%= @meeting_room.id %>/meetings">View Meetings</a>
 
 <p <%= "#{@meeting_room.meetings.count} meetings" %></p>
-<h1>Name: <%= @meeting_room.name %></h1>
+<h1>Name: <%= link_to @meeting_room.name, request.path %></h1>
 <h2>Has Projector: <%= @meeting_room.has_projector %></h2>
 <h3>Capacity: <%= @meeting_room.capacity %></h3>
 
