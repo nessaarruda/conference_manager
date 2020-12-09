@@ -8,22 +8,22 @@
 </nav>
 
 <h1>All Meeting Rooms</h1>
-<%= link_to "New Meeting Room", "/meeting_rooms/new" %>
+<%= link_to "New Meeting Room", "/meeting_rooms/new" %><br>
 
 <%= form_tag '/meeting_rooms', method: :get do %>
-<%= link_to 'Sort by Number of Meetings', "/meeting_rooms?sort=true" %><br>
+<p><%= link_to 'Sort by Number of Meetings', "/meeting_rooms?sort=true" %></p>
 <%= submit_tag 'Only return records with more than minimum capacity' %>
   <%= number_field_tag :capacity %>
 <% end %>
 <% @meeting_rooms.each_with_index do |meeting_room, index|%>
   <div id="<%= "row-#{index}" %>">
+    <hr>
     <h2>Name: <%= link_to meeting_room.name, "/meeting_rooms/#{meeting_room.id}" %> </h2>
     <h3>Capacity: <%= meeting_room.capacity %></h3>
-    <p><%= "#{meeting_room.meetings.count} meetings" %></p>
+    <h4><%= "#{meeting_room.meetings.count} meetings" %></h4>
     <p>Has projector: <%= meeting_room.has_projector %></p>
-    <br>
-    <a href='/meeting_rooms/<%= meeting_room.id %>/edit'>Update Meeting Room</a><br>
-  <%= button_to 'Delete Meeting Room', "/meeting_rooms/#{meeting_room.id}", method: :delete%><br>
 
+  <p><%= link_to "Update Meeting Room", "/meeting_rooms/#{meeting_room.id}/edit" %></p>
+  <%= button_to 'Delete Meeting Room', "/meeting_rooms/#{meeting_room.id}", method: :delete%><br>
   </div>
 <% end %>
