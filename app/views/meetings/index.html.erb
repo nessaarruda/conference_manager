@@ -3,7 +3,7 @@
     table,th,td {border: 1px solid black}
     </style>
 </head>
-
+<body>
 <nav>
   <%= link_to "Conference Manager Home", '/' %>
   <%= link_to "Conferences", "/conferences" %>
@@ -20,7 +20,10 @@
 <% end %>
 
 <%= form_tag '/meetings', method: :get do %>
-<%= submit_tag 'Only return records with more than minimum participants' %>
+  <% if params[:id] %>
+    <%= hidden_field_tag :id, params[:id] %>
+  <% end %>
+  <%= submit_tag 'Only return records with more than minimum participants' %>
   <%= number_field_tag :number_of_participants %>
 <% end %>
 <table>
@@ -48,3 +51,4 @@
 <% end %>
 <br>
 </table>
+</body>
