@@ -20,7 +20,8 @@
 <% end %>
 
 <%= form_tag '/meetings', method: :get do %>
-<%= submit_tag 'Only return records with more than minimum participants' %>
+  <%= hidden_field_tag :id, params[:id] %>
+  <%= submit_tag 'Only return records with more than minimum participants' %>
   <%= number_field_tag :number_of_participants %>
 <% end %>
 <table>
