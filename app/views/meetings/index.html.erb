@@ -1,3 +1,9 @@
+<head>
+  <style>
+    table,th,td {border: 1px solid black}
+    </style>
+</head>
+
 <nav>
   <%= link_to "Conference Manager Home", '/' %>
   <%= link_to "Conferences", "/conferences" %>
@@ -7,29 +13,38 @@
 </nav>
 
 <h1>Meetings</h1>
-<%= link_to "Sort Alphabetically", "/meeting_rooms/#{params[:id]}/meetings?sort=name" %>
-<%= form_tag '/meetings', method: :get do %>
-  <%= number_field_tag :number_of_participants %>
-  <%= submit_tag 'Only return records with more than minimum participants' %>
-<% end %>
 <p><%= "#{@meetings.count} meetings" %></p>
-<% @meetings.each_with_index do |meeting, index| %>
-  <div id=<%= "row-#{index}" %>>
 
-  <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.name %></a></h3>
-  <h3><a href="/meeting_rooms/<%= meeting.meeting_room.id %>"><%= meeting.meeting_room.name %></a></h3>
-  <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.number_of_participants %></a></h3>
-  <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.start_time %></a></h3>
-  <h3><a href="/meetings/<%= meeting.id %>"><%= meeting.end_time %></a></h3>
-  <%= link_to 'Update Meeting', "/meetings/#{meeting.id}/edit" %>
-  <form action='/meetings/<%= meeting.id %>' method="post">
-    <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
-    <input type='hidden' name='_method' value="DELETE">
-    <input type='hidden' name="previous_request" value='<%= request.path %>'>
-    <input type='submit' value='Delete Meeting'/>
-  </form>
-  </div>
+<% if params[:id] %>
+<%= link_to "Create Meeting", "/meeting_rooms/#{params[:id]}/meetings/new" %>
 <% end %>
-<a href="/meeting_rooms/<%= params[:id] %>/meetings/new">Create Meeting</a>
 
+<%= form_tag '/meetings', method: :get do %>
+<%= submit_tag 'Only return records with more than minimum participants' %>
+  <%= number_field_tag :number_of_participants %>
+<% end %>
+<table>
+  <tr>
+    <th> Name <br> <%= link_to "Sort Alphabetically", :sort=>"name" %> </th>
+    <th> Meeting Room </th>
+    <th> Number of Participants </th>
+    <th> Start Time </th>
+    <th> End Time </th>
+    <th> Created </th>
+    <th> Update </th>
+    <th> Delete </th>
+  </tr>
+  <% @meetings.each_with_index do |meeting, index| %>
+    <tr id=<%= "row-#{index}" %>>
+    <td><%= link_to meeting.name, "/meetings/#{meeting.id}" %></td>
+    <td><%= link_to meeting.meeting_room.name, "/meeting_rooms/#{meeting.meeting_room_id}" %></td>
+    <td><%= meeting.number_of_participants %></td>
+    <td><%= format_timestamp(meeting.start_time) %></td>
+    <td><%= format_timestamp(meeting.end_time) %></td>
+    <td><%= format_timestamp(meeting.created_at) %></td>
+    <td><%= link_to "Update Meeting", "/meetings/#{meeting.id}/edit" %></td>
+    <td><%= button_to "Delete Meeting", meeting_path(meeting, previous_request: request.path), method: :delete %></td>
+    </tr>
+<% end %>
 <br>
+</table>

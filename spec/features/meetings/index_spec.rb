@@ -15,9 +15,11 @@ describe 'As a visitor' do
 
     expect(page).to have_content("Meetings")
     expect(page).to have_content(meeting_1.name)
-    expect(page).to have_content(meeting_1.start_time)
+    start = meeting_1.start_time.strftime('%m-%d-%Y %H:%M')
+    expect(page).to have_content(start)
     expect(page).to have_content(meeting_1.number_of_participants)
-    expect(page).to have_content(meeting_1.end_time)
+    end_time = meeting_1.end_time.strftime('%m-%d-%Y %H:%M')
+    expect(page).to have_content(end_time)
     end
   end
 
