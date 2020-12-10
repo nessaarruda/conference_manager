@@ -7,9 +7,9 @@ describe 'as a visitor' do
 
       expect(page).to have_content("New Meeting Room")
       expect(page).to have_selector('form')
-      expect(page).to have_field('metname', type: 'text')
-      expect(page).to have_text('Capacity:')
-      expect(page).to have_field('capacity', type: 'bigint')
+      expect(page).to have_field(:name)
+      expect(page).to have_text('Capacity')
+      expect(page).to have_field('capacity')
     end
 
     it 'has a button to Create Meeting Room' do
@@ -21,8 +21,8 @@ describe 'as a visitor' do
     it 'creates a new meeting_room and redirects to the meeting_rooms index' do
       visit '/meeting_rooms/new'
 
-      fill_in('metname', with: 'Oprah')
-      fill_in('capacity', with: 30)
+      fill_in(:name, with: 'Oprah')
+      fill_in('Capacity', with: 30)
       click_on('Create Meeting Room')
 
       expect(page).to have_current_path('/meeting_rooms')

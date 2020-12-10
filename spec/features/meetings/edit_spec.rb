@@ -15,8 +15,8 @@ describe 'Edit Meeting page' do
 
     expect(page).to have_content("Update Meeting #{meeting.name}")
     expect(page).to have_selector('form')
-    expect(page).to have_text('Meeting Name:')
-    expect(page).to have_field('mename', type: 'text')
+    expect(page).to have_text('Meeting name')
+    expect(page).to have_field(:name)
   end
 
   it 'updates the attributes of the meeting' do
@@ -25,7 +25,7 @@ describe 'Edit Meeting page' do
                                     capacity: 30
                                   )
 
-    meeting = meeting_room_1.meetings.create!(name: "Monday Meeting",
+    meeting = meeting_room_1.meetings.create!(name: "Tuesday Meeting",
                                 number_of_participants: 10,
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
@@ -34,7 +34,7 @@ describe 'Edit Meeting page' do
 
     click_on('Update Meeting')
     expect(page).to have_button('Update Meeting', type: 'submit')
-    fill_in('mename', with: 'Monday Meeting')
+    fill_in(:name, with: 'Monday Meeting')
 
     click_on('Update Meeting')
 
@@ -54,7 +54,7 @@ describe 'Edit Meeting page' do
     visit "/meetings/#{meeting.id}"
     click_on('Update Meeting')
 
-    fill_in 'Meeting Name', with: 'AOC'
+    fill_in :name, with: 'AOC'
     click_on('Update Meeting')
 
     expect(page).to have_content("AOC")

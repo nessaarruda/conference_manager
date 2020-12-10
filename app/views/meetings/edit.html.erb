@@ -1,24 +1,22 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
+
 <h1>Update Meeting <%= @meeting.name %></h1>
 
-<form action='/meetings/<%= @meeting.id %>' method='post'>
-  <input type='hidden' name='authenticity_token' value="<%= form_authenticity_token %>">
-  <input type='hidden' name='previous_request' value="<%= request.referrer %>">
-  <input type='hidden' name="_method" value="PATCH" />
-  <label for='mename'>Meeting Name: </label>
-  <input id='mename' type='text' name='meeting[name]' value='<%= @meeting.name %>'/><br/>
-  <label for='start_time'>Start Time: </label>
-  <input id='start_time' type='datetime-local' name='meeting[start_time]' value='<%= @meeting.start_time %>'/><br/>
-  <label for='end_time'>Has projector: </label>
-
-  <input id='end_time' type='datetime-local' name='meeting[end_time]' value='<%= @meeting.end_time %>'/><br/>
-  <input type='submit' value='Update Meeting'/>
-</form>
+  <%= form_tag "/meetings/#{@meeting.id}", method: :patch do %>
+  <%= hidden_field_tag :previous_request, request.referrer %>
+  <%= label_tag "Meeting name: " %>
+  <%= text_field_tag :name, @meeting.name %><br>
+  <%= label_tag :number_of_participants %>
+  <%= number_field_tag :number_of_participants, @meeting.number_of_participants %><br>
+  <%= label_tag :start_time  %>
+  <%= datetime_field :meeting, :start_time  %><br>
+  <%= label_tag :end_time %>
+  <%= datetime_field :meeting, :end_time  %><br><br>
+  <%= submit_tag "Update Meeting"  %>
+<% end %>

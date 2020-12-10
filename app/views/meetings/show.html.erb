@@ -1,16 +1,15 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
-<h1><%= link_to @meeting.name, "/meetings/#{@meeting.id}" %></h1>
-<h1><%= link_to @meeting.meeting_room.name, "/meeting_rooms/#{@meeting.meeting_room.id}" %></h1>
-<h2>Number of Participants: <%= @meeting.number_of_participants %></h2>
-<h2>Start Time: <%= @meeting.start_time %></h2>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
-<p>End Time: <%= @meeting.end_time %></p>
-<h1><%= link_to 'Update Meeting', "/meetings/#{@meeting.id}/edit" %></h1>
+<h1><small>Meeting name: <%= link_to @meeting.name, "/meetings/#{@meeting.id}" %></small> </h1>
+<h2>Meeting room name: <%= link_to @meeting.meeting_room.name, "/meeting_rooms/#{@meeting.meeting_room.id}" %></h2>
+<h3>Number of Participants: <%= @meeting.number_of_participants %></h3>
+<h3>Start Time: <%= format_timestamp(@meeting.start_time) %></h3>
+<h3>End Time: <%= format_timestamp(@meeting.end_time) %></h3>
+<h3><%= link_to 'Update Meeting', "/meetings/#{@meeting.id}/edit" %></h3>
+<h1><%= button_to 'Delete Meeting', meeting_path(@meeting, previous_request: request.path), method: :delete %></h1>

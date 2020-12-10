@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
 
   def index
-    @meetings = Meeting.where('number_of_participants > ?', params[:number_of_participants]|| 0).order(params[:sort], created_at: :desc)
+    @meetings = Meeting.select_meetings(params[:id], params[:number_of_participants], params[:sort])
   end
 
   def show
@@ -13,15 +13,9 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    meeting_room = MeetingRoom.find(params[:meeting_room_id])
-    meeting_room.meetings.create({
-      name: params[:meeting][:name],
-      number_of_participants: params[:meeting][:number_of_participants],
-      start_time: params[:meeting][:start_time],
-      end_time: params[:meeting][:end_time],
+    Meeting.create(meetings_params)
 
-      })
-    redirect_to "/meeting_rooms/#{params[:meeting_room_id]}/meetings"
+    redirect_to "/meeting_rooms/#{params[:id]}/meetings"
   end
 
   def edit
@@ -29,20 +23,18 @@ class MeetingsController < ApplicationController
   end
 
   def update
-    @meeting = Meeting.find(params[:id])
-    @meeting.update({
-      name: params[:meeting][:name],
-      number_of_participants: params[:meeting][:number_of_participants],
-      start_time: params[:meeting][:start_time],
-      end_time: params[:meeting][:end_time],
-
-      })
-
+    Meeting.find(params[:id]).update(meetings_params)
     redirect_to params[:previous_request]
   end
 
   def destroy
     Meeting.destroy(params[:id])
     redirect_to params[:previous_request]
+  end
+
+  private
+
+  def meetings_params
+    params.permit(:meeting_room_id, :name, :number_of_participants).merge(params[:meeting].permit(:start_time, :end_time))
   end
 end

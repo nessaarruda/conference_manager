@@ -1,18 +1,17 @@
-<header>
-  <nav>
-    <a href="/">Conference Manager Home</a>
-    <a href='/conferences'>Conferences</a>
-    <a href='/presentations'>Presentations</a>
-    <a href='/meeting_rooms'>Meeting Rooms</a>
-    <a href='/meetings'>Meetings</a>
-  </nav>
-</header>
-<a href="/meeting_rooms/<%= @meeting_room.id %>/meetings">View Meetings</a>
+<nav>
+  <%= link_to "Conference Manager Home", '/' %>
+  <%= link_to "Conferences", "/conferences" %>
+  <%= link_to "Presentations", "/presentations" %>
+  <%= link_to "Meeting Rooms", "/meeting_rooms" %>
+  <%= link_to "Meetings", "/meetings" %>
+</nav>
 
-<p <%= "#{@meeting_room.meetings.count} meetings" %></p>
+
 <h1>Name: <%= link_to @meeting_room.name, request.path %></h1>
-<h2>Has Projector: <%= @meeting_room.has_projector %></h2>
-<h3>Capacity: <%= @meeting_room.capacity %></h3>
+<p>Has Projector: <%= @meeting_room.has_projector %></p>
+<p>Capacity: <%= @meeting_room.capacity %></p>
+<p><%= "#{@meeting_room.meetings.count} meetings" %></p>
 
+<h3><%= link_to "View Meetings", "/meeting_rooms/#{@meeting_room.id}/meetings" %></h3>
+<h4><%= link_to "Update Meeting Room", "/meeting_rooms/#{@meeting_room.id}/edit"%></h4>
 <%= button_to 'Delete Meeting Room', "/meeting_rooms/#{@meeting_room.id}", method: :delete %>
-<a href="/meeting_rooms/<%= @meeting_room.id %>/edit">Update Meeting Room</a>
