@@ -33,7 +33,7 @@ describe 'As a visitor' do
                                 start_time: "Monday, 10am",
                               end_time: "1 hour")
 
-    visit "/meeting_rooms/#{meeting_1.id}/meetings"
+    visit "/meeting_rooms/#{meeting_room_1.id}/meetings"
 
     expect(page).to have_content(meeting_1.name)
   end

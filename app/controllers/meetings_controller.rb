@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
 
   def index
-    @meetings = Meeting.where('number_of_participants > ?', params[:number_of_participants]|| 0).order(params[:sort], created_at: :desc)
+    @meetings = Meeting.select_meetings(params[:id], params[:number_of_participants], params[:sort])
   end
 
   def show

@@ -6,10 +6,10 @@ describe MeetingRoom do
   end
 
   it 'selects meeting_rooms' do
-    meeting_room_1 = create(:meeting_room, capacity: 10)
-    meeting_room_2 = create(:meeting_room, capacity: 30)
-    meeting_room_3 = create(:meeting_room, capacity: 20)
-    meeting_room_4 = create(:meeting_room, capacity: 40)
+    meeting_room_1 = create(:meeting_room, has_projector: true, capacity: 10)
+    meeting_room_2 = create(:meeting_room, has_projector: true, capacity: 30)
+    meeting_room_3 = create(:meeting_room, has_projector: true, capacity: 20)
+    meeting_room_4 = create(:meeting_room, has_projector: true, capacity: 40)
     3.times { create(:meeting, meeting_room: meeting_room_2) }
     2.times { create(:meeting, meeting_room: meeting_room_4) }
     1.times { create(:meeting, meeting_room: meeting_room_1) }
