@@ -15,8 +15,10 @@ RSpec.describe 'show meeting page' do
 
     expect(page).to have_content(meeting_1.name)
     expect(page).to have_content(meeting_1.number_of_participants)
-    expect(page).to have_content(meeting_1.start_time)
-    expect(page).to have_content(meeting_1.end_time)
+    start = meeting_1.start_time.strftime('%m-%d-%Y %H:%M')
+    expect(page).to have_content(start)
+    end_time = meeting_1.end_time.strftime('%m-%d-%Y %H:%M')
+    expect(page).to have_content(end_time)
   end
 
   describe 'site navigation' do
